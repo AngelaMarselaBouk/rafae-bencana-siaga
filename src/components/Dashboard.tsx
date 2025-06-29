@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { AlertTriangle, Cloud, Droplets, Languages, Bell } from 'lucide-react';
+import { AlertTriangle, Cloud, Droplets, Languages, Bell, MapPin, FileText } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Button } from './ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
