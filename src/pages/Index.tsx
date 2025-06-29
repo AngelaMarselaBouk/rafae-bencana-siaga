@@ -1,13 +1,42 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import React, { useState } from 'react';
+import { Navigation } from '../components/Navigation';
+import { Dashboard } from '../components/Dashboard';
+import { Map } from '../components/Map';
+import { Emergency } from '../components/Emergency';
+import { Report } from '../components/Report';
+import { Education } from '../components/Education';
+import { LanguageProvider } from '../contexts/LanguageContext';
 
 const Index = () => {
+  const [activeTab, setActiveTab] = useState('dashboard');
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'dashboard':
+        return <Dashboard />;
+      case 'map':
+        return <Map />;
+      case 'emergency':
+        return <Emergency />;
+      case 'report':
+        return <Report />;
+      case 'education':
+        return <Education />;
+      default:
+        return <Dashboard />;
+    }
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <LanguageProvider>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-teal-50">
+        <div className="pb-20">
+          {renderContent()}
+        </div>
+        <Navigation activeTab={activeTab} onTabChange={setActiveTab} />
       </div>
-    </div>
+    </LanguageProvider>
   );
 };
 
