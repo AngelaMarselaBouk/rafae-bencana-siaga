@@ -6,6 +6,8 @@ import { Map } from '../components/Map';
 import { Emergency } from '../components/Emergency';
 import { Report } from '../components/Report';
 import { Education } from '../components/Education';
+import { AdminPanel } from '../components/AdminPanel';
+import { NotificationSystem } from '../components/NotificationSystem';
 import { LanguageProvider } from '../contexts/LanguageContext';
 
 const Index = () => {
@@ -21,6 +23,10 @@ const Index = () => {
         return <Emergency />;
       case 'report':
         return <Report />;
+      case 'notifications':
+        return <NotificationSystem />;
+      case 'admin':
+        return <AdminPanel />;
       case 'education':
         return <Education />;
       default:
