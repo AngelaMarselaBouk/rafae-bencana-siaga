@@ -5,21 +5,80 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { Button } from './ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 
-export const Dashboard: React.FC = () => {
+interface DashboardProps {
+  onNavigate?: (tab: string) => void;
+}
+
+export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
   const { t, language, setLanguage } = useLanguage();
 
   const menuItems = [
-    { icon: AlertTriangle, label: 'Status Tinggi Muka Air', color: 'bg-red-100 text-red-600' },
-    { icon: BarChart3, label: 'Deteksi Otomatis', color: 'bg-blue-100 text-blue-600' },
-    { icon: Droplets, label: 'Pos Lokasi Stasiun', color: 'bg-green-100 text-green-600' },
-    { icon: Settings, label: 'Operasi', color: 'bg-purple-100 text-purple-600' },
-    { icon: Video, label: 'Pemantauan CCTV', color: 'bg-orange-100 text-orange-600' },
-    { icon: MapPin, label: 'Prediksi Cuaca', color: 'bg-teal-100 text-teal-600' },
-    { icon: Users, label: 'Pos Pengamat TMA', color: 'bg-pink-100 text-pink-600' },
-    { icon: Bell, label: 'Laporan Masyarakat', color: 'bg-yellow-100 text-yellow-600' },
-    { icon: Shield, label: 'Kontak Darurat', color: 'bg-red-100 text-red-600' },
-    { icon: Eye, label: 'Stasiun Otomatis', color: 'bg-cyan-100 text-cyan-600' },
-    { icon: Zap, label: 'Peringatan Aplikasi', color: 'bg-gray-100 text-gray-600' }
+    { 
+      icon: AlertTriangle, 
+      label: 'Status Tinggi Muka Air', 
+      color: 'bg-red-100 text-red-600',
+      action: () => onNavigate?.('status-alert')
+    },
+    { 
+      icon: BarChart3, 
+      label: 'Deteksi Otomatis', 
+      color: 'bg-blue-100 text-blue-600',
+      action: () => onNavigate?.('chart')
+    },
+    { 
+      icon: Droplets, 
+      label: 'Pos Lokasi Stasiun', 
+      color: 'bg-green-100 text-green-600',
+      action: () => onNavigate?.('water-level')
+    },
+    { 
+      icon: Settings, 
+      label: 'Operasi', 
+      color: 'bg-purple-100 text-purple-600',
+      action: () => onNavigate?.('admin')
+    },
+    { 
+      icon: Video, 
+      label: 'Pemantauan CCTV', 
+      color: 'bg-orange-100 text-orange-600',
+      action: () => onNavigate?.('cctv')
+    },
+    { 
+      icon: MapPin, 
+      label: 'Prediksi Cuaca', 
+      color: 'bg-teal-100 text-teal-600',
+      action: () => onNavigate?.('weather-forecast')
+    },
+    { 
+      icon: Users, 
+      label: 'Pos Pengamat TMA', 
+      color: 'bg-pink-100 text-pink-600',
+      action: () => onNavigate?.('water-level')
+    },
+    { 
+      icon: Bell, 
+      label: 'Laporan Masyarakat', 
+      color: 'bg-yellow-100 text-yellow-600',
+      action: () => onNavigate?.('report')
+    },
+    { 
+      icon: Shield, 
+      label: 'Kontak Darurat', 
+      color: 'bg-red-100 text-red-600',
+      action: () => onNavigate?.('emergency')
+    },
+    { 
+      icon: Eye, 
+      label: 'Stasiun Otomatis', 
+      color: 'bg-cyan-100 text-cyan-600',
+      action: () => onNavigate?.('map')
+    },
+    { 
+      icon: Zap, 
+      label: 'Peringatan Aplikasi', 
+      color: 'bg-gray-100 text-gray-600',
+      action: () => onNavigate?.('notifications')
+    }
   ];
 
   return (
@@ -40,7 +99,12 @@ export const Dashboard: React.FC = () => {
               <Languages size={14} />
               {language === 'id' ? 'ID' : 'TET'}
             </Button>
-            <Button variant="ghost" size="sm" className="text-white p-2">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="text-white p-2"
+              onClick={() => onNavigate?.('notifications')}
+            >
               <Bell size={16} />
             </Button>
           </div>
@@ -65,12 +129,16 @@ export const Dashboard: React.FC = () => {
             {menuItems.map((item, index) => {
               const Icon = item.icon;
               return (
-                <div key={index} className="flex flex-col items-center">
+                <button
+                  key={index}
+                  onClick={item.action}
+                  className="flex flex-col items-center hover:scale-105 transition-transform duration-200"
+                >
                   <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-2 ${item.color}`}>
                     <Icon size={20} />
                   </div>
                   <span className="text-[10px] text-center text-gray-700 leading-tight px-1">{item.label}</span>
-                </div>
+                </button>
               );
             })}
           </div>

@@ -21,7 +21,7 @@ const Index = () => {
   const renderContent = () => {
     switch (activeTab) {
       case 'dashboard':
-        return <Dashboard />;
+        return <Dashboard onNavigate={setActiveTab} />;
       case 'map':
         return <Map onBack={() => setActiveTab('dashboard')} />;
       case 'chart':
@@ -45,7 +45,7 @@ const Index = () => {
       case 'education':
         return <Education />;
       default:
-        return <Dashboard />;
+        return <Dashboard onNavigate={setActiveTab} />;
     }
   };
 
