@@ -78,11 +78,17 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
       label: 'Peringatan Aplikasi', 
       color: 'bg-gray-100 text-gray-600',
       action: () => onNavigate?.('notifications')
+    },
+    { 
+      icon: FileText, 
+      label: 'Edukasi Bencana', 
+      color: 'bg-indigo-100 text-indigo-600',
+      action: () => onNavigate?.('education')
     }
   ];
 
   return (
-    <div className="h-full bg-gradient-to-br from-cyan-400 via-blue-400 to-blue-500">
+    <div className="h-full bg-gradient-to-br from-cyan-400 via-blue-400 to-blue-500 overflow-y-auto">
       {/* Header */}
       <div className="p-4 text-white">
         <div className="flex items-center justify-between mb-4 pt-6">
@@ -123,8 +129,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
           </CardContent>
         </Card>
 
-        {/* Menu Grid */}
-        <div className="bg-white rounded-t-3xl -mx-4 px-4 py-4 min-h-80">
+        {/* Menu Grid - Made scrollable */}
+        <div className="bg-white rounded-t-3xl -mx-4 px-4 py-4 min-h-80 max-h-96 overflow-y-auto">
           <div className="grid grid-cols-3 gap-3 mb-6">
             {menuItems.map((item, index) => {
               const Icon = item.icon;
@@ -132,7 +138,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
                 <button
                   key={index}
                   onClick={item.action}
-                  className="flex flex-col items-center hover:scale-105 transition-transform duration-200"
+                  className="flex flex-col items-center hover:scale-105 transition-transform duration-200 p-2"
                 >
                   <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-2 ${item.color}`}>
                     <Icon size={20} />

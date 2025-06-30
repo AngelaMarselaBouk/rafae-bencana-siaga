@@ -61,9 +61,9 @@ const Index = () => {
               {/* Notch */}
               <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-50"></div>
               
-              {/* Screen Content */}
-              <div className="relative bg-gradient-to-br from-blue-50 via-cyan-50 to-teal-50 min-h-[640px] max-h-[640px] overflow-hidden">
-                <div className="pb-20 h-full overflow-y-auto">
+              {/* Screen Content - Made scrollable */}
+              <div className="relative bg-gradient-to-br from-blue-50 via-cyan-50 to-teal-50 h-[640px] overflow-hidden">
+                <div className="pb-20 h-full overflow-y-auto scrollbar-hide">
                   {renderContent()}
                 </div>
                 <Navigation activeTab={activeTab} onTabChange={setActiveTab} />
