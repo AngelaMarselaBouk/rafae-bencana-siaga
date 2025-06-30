@@ -23,10 +23,10 @@ export const Dashboard: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-cyan-400 via-blue-400 to-blue-500">
+    <div className="h-full bg-gradient-to-br from-cyan-400 via-blue-400 to-blue-500">
       {/* Header */}
       <div className="p-4 text-white">
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-4 pt-6">
           <div className="flex items-center gap-3">
             <h1 className="text-lg font-bold">Home</h1>
           </div>
@@ -47,36 +47,36 @@ export const Dashboard: React.FC = () => {
         </div>
 
         {/* Main Header Card */}
-        <Card className="bg-white/20 backdrop-blur-sm border-white/30 text-white shadow-xl mb-6">
-          <CardContent className="p-6 text-center">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
-                <Waves className="text-white" size={32} />
+        <Card className="bg-white/20 backdrop-blur-sm border-white/30 text-white shadow-xl mb-4">
+          <CardContent className="p-4 text-center">
+            <div className="flex items-center justify-center gap-3 mb-3">
+              <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                <Waves className="text-white" size={24} />
               </div>
             </div>
-            <h2 className="text-xl font-bold mb-2">Sistem Peringatan Dini Banjir</h2>
-            <p className="text-white/90 text-sm">Atambua, Kabupaten Belu, Nusa Tenggara Timur</p>
+            <h2 className="text-lg font-bold mb-1">Sistem Peringatan Dini Banjir</h2>
+            <p className="text-white/90 text-xs">Atambua, Kabupaten Belu, Nusa Tenggara Timur</p>
           </CardContent>
         </Card>
 
         {/* Menu Grid */}
-        <div className="bg-white rounded-t-3xl -mx-4 px-6 py-6 min-h-96">
-          <div className="grid grid-cols-3 gap-4 mb-8">
+        <div className="bg-white rounded-t-3xl -mx-4 px-4 py-4 min-h-80">
+          <div className="grid grid-cols-3 gap-3 mb-6">
             {menuItems.map((item, index) => {
               const Icon = item.icon;
               return (
                 <div key={index} className="flex flex-col items-center">
-                  <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-2 ${item.color}`}>
-                    <Icon size={24} />
+                  <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-2 ${item.color}`}>
+                    <Icon size={20} />
                   </div>
-                  <span className="text-xs text-center text-gray-700 leading-tight">{item.label}</span>
+                  <span className="text-[10px] text-center text-gray-700 leading-tight px-1">{item.label}</span>
                 </div>
               );
             })}
           </div>
 
           {/* Wave Pattern */}
-          <div className="relative h-20 mt-8">
+          <div className="relative h-16 mt-4">
             <svg className="absolute bottom-0 w-full" viewBox="0 0 400 100" preserveAspectRatio="none">
               <path d="M0,50 Q100,20 200,50 T400,50 L400,100 L0,100 Z" fill="rgba(59, 130, 246, 0.1)" />
               <path d="M0,60 Q100,30 200,60 T400,60 L400,100 L0,100 Z" fill="rgba(59, 130, 246, 0.05)" />

@@ -22,8 +22,8 @@ export const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange }
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-blue-100 px-1 py-2 shadow-lg z-50">
-      <div className="flex justify-around items-center max-w-lg mx-auto">
+    <nav className="absolute bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-blue-100 px-2 py-2 shadow-lg z-50 rounded-b-[2rem]">
+      <div className="flex justify-around items-center">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeTab === item.id;
@@ -38,8 +38,8 @@ export const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange }
                   : 'text-gray-500 hover:text-blue-500 hover:bg-blue-25'
               }`}
             >
-              <Icon size={16} className={`mb-1 ${isActive ? 'scale-110' : ''}`} />
-              <span className="text-xs font-medium">{item.label}</span>
+              <Icon size={14} className={`mb-1 ${isActive ? 'scale-110' : ''}`} />
+              <span className="text-[10px] font-medium">{item.label}</span>
             </button>
           );
         })}
