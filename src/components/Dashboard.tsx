@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { AlertTriangle, Cloud, Droplets, Languages, Bell, MapPin, FileText, Shield, Settings } from 'lucide-react';
+import { AlertTriangle, Cloud, Droplets, Languages, Bell, MapPin, FileText, Shield, Settings, Users, BarChart3, Thermometer, Wind } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Button } from './ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
@@ -11,15 +11,15 @@ export const Dashboard: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-cyan-400 via-blue-400 to-blue-500">
       {/* Header */}
-      <div className="p-6 text-white">
-        <div className="flex items-center justify-between mb-8">
+      <div className="p-4 text-white">
+        <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-              <Droplets className="text-white" size={20} />
+            <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+              <Droplets className="text-white" size={16} />
             </div>
             <div>
-              <h1 className="text-xl font-bold">Sistem Peringatan Dini Banjir</h1>
-              <p className="text-white/80 text-sm">Desa Rafae, Kec. Raimanuk, Kab. Belu, NTT</p>
+              <h1 className="text-lg font-bold">Sistem Peringatan Dini Banjir</h1>
+              <p className="text-white/80 text-xs">DKI Jakarta</p>
             </div>
           </div>
           <div className="flex gap-2">
@@ -27,75 +27,177 @@ export const Dashboard: React.FC = () => {
               variant="outline"
               size="sm"
               onClick={() => setLanguage(language === 'id' ? 'tet' : 'id')}
-              className="bg-white/10 border-white/20 text-white hover:bg-white/20"
+              className="bg-white/10 border-white/20 text-white hover:bg-white/20 text-xs"
             >
-              <Languages size={16} />
+              <Languages size={14} />
               {language === 'id' ? 'ID' : 'TET'}
             </Button>
           </div>
         </div>
 
-        {/* Main Feature Cards Grid */}
-        <div className="grid grid-cols-2 gap-4 mb-6">
-          {/* Monitor Cuaca */}
-          <Card className="bg-white/95 backdrop-blur-sm shadow-lg border-0 hover:shadow-xl transition-shadow">
-            <CardContent className="p-6 text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <Cloud className="text-blue-500" size={28} />
+        {/* Main Status Card */}
+        <Card className="bg-orange-400 border-orange-500 text-white shadow-xl mb-6">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <AlertTriangle size={20} />
+                  <span className="text-sm font-medium">Siaga Hujan Deras</span>
+                </div>
+                <div className="text-2xl font-bold">216°C</div>
+                <div className="text-sm opacity-90">17 Stasiun</div>
               </div>
-              <h3 className="text-lg font-bold text-gray-800 mb-2">Monitor Cuaca</h3>
-              <p className="text-gray-600 text-sm">Pantau kondisi real-time</p>
+              <div className="text-right">
+                <div className="text-xs opacity-75">Pk. Angke Hulu</div>
+                <div>Awas</div>
+                <div className="text-lg font-bold">216°C</div>
+                <div className="text-xs">🟡 Siaga 3</div>
+              </div>
+            </div>
+            <div className="mt-4">
+              <div className="text-xs mb-1">Pompa Kali Duri (Kalijodo)</div>
+              <div className="text-xs opacity-75">Kali Duri</div>
+              <div className="flex items-center justify-between">
+                <span className="text-lg font-bold">212⚡</span>
+                <span className="text-xs">🟡 Siaga 3</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Status Stations Grid */}
+        <div className="grid grid-cols-2 gap-3 mb-6">
+          <Card className="bg-white/95 backdrop-blur-sm shadow-lg border-0">
+            <CardContent className="p-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="text-xs text-gray-600 mb-1">PS. Cilangap</div>
+                  <div className="text-xs text-gray-500">Ciliwung</div>
+                  <div className="text-xs text-blue-600">⬇ Normal</div>
+                </div>
+                <div className="text-right">
+                  <div className="text-lg font-bold text-gray-800">46°C</div>
+                  <div className="text-xs text-gray-500">15:50</div>
+                </div>
+              </div>
             </CardContent>
           </Card>
 
-          {/* Laporkan Kondisi */}
-          <Card className="bg-white/95 backdrop-blur-sm shadow-lg border-0 hover:shadow-xl transition-shadow">
-            <CardContent className="p-6 text-center">
-              <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <FileText className="text-green-500" size={28} />
+          <Card className="bg-white/95 backdrop-blur-sm shadow-lg border-0">
+            <CardContent className="p-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="text-xs text-gray-600 mb-1">PS. Katulampa (Hulu)</div>
+                  <div className="text-xs text-gray-500">Hulu</div>
+                  <div className="text-xs text-blue-600">⬇ Normal</div>
+                </div>
+                <div className="text-right">
+                  <div className="text-lg font-bold text-gray-800">55°C</div>
+                  <div className="text-xs text-gray-500">15:50</div>
+                </div>
               </div>
-              <h3 className="text-lg font-bold text-gray-800 mb-2">Laporkan Kondisi</h3>
-              <p className="text-gray-600 text-sm">Kirim laporan lapangan</p>
             </CardContent>
           </Card>
 
-          {/* Peta Evakuasi */}
-          <Card className="bg-white/95 backdrop-blur-sm shadow-lg border-0 hover:shadow-xl transition-shadow">
-            <CardContent className="p-6 text-center">
-              <div className="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <MapPin className="text-orange-500" size={28} />
+          <Card className="bg-white/95 backdrop-blur-sm shadow-lg border-0">
+            <CardContent className="p-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="text-xs text-gray-600 mb-1">PS. Depok</div>
+                  <div className="text-xs text-gray-500">Ciliwung</div>
+                  <div className="text-xs text-blue-600">⬇ Normal</div>
+                </div>
+                <div className="text-right">
+                  <div className="text-lg font-bold text-gray-800">32°C</div>
+                  <div className="text-xs text-gray-500">15:50</div>
+                </div>
               </div>
-              <h3 className="text-lg font-bold text-gray-800 mb-2">Peta Evakuasi</h3>
-              <p className="text-gray-600 text-sm">Lihat jalur aman</p>
             </CardContent>
           </Card>
 
-          {/* Panel Admin */}
-          <Card className="bg-white/95 backdrop-blur-sm shadow-lg border-0 hover:shadow-xl transition-shadow">
-            <CardContent className="p-6 text-center">
-              <div className="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <Settings className="text-purple-500" size={28} />
+          <Card className="bg-white/95 backdrop-blur-sm shadow-lg border-0">
+            <CardContent className="p-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="text-xs text-gray-600 mb-1">PS. Kp. Melayu</div>
+                  <div className="text-xs text-gray-500">Ciliwung</div>
+                  <div className="text-xs text-blue-600">⬇ Normal</div>
+                </div>
+                <div className="text-right">
+                  <div className="text-lg font-bold text-gray-800">519°C</div>
+                  <div className="text-xs text-gray-500">15:50</div>
+                </div>
               </div>
-              <h3 className="text-lg font-bold text-gray-800 mb-2">Panel Admin</h3>
-              <p className="text-gray-600 text-sm">Kelola sistem</p>
             </CardContent>
           </Card>
         </div>
 
-        {/* Emergency SOS Button */}
-        <Card className="bg-red-500 border-red-600 text-white shadow-xl">
-          <CardContent className="p-6 text-center">
-            <div className="mb-4">
-              <h2 className="text-2xl font-bold mb-2">SOS</h2>
-              <h3 className="text-xl font-bold mb-2">TOMBOL DARURAT RAFAE</h3>
-              <p className="text-red-100 text-sm">Tekan saat kondisi bahaya di Desa Rafae</p>
+        {/* Navigation Icons Grid */}
+        <div className="grid grid-cols-4 gap-4 mb-6">
+          <div className="flex flex-col items-center">
+            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-2">
+              <Users className="text-white" size={20} />
             </div>
-            <Button className="w-full bg-red-600 hover:bg-red-700 text-white text-lg font-bold py-6 border-2 border-white animate-pulse">
-              <AlertTriangle size={24} className="mr-2" />
-              TEKAN DARURAT
-            </Button>
-          </CardContent>
-        </Card>
+            <span className="text-xs text-center">Tim Siaga</span>
+          </div>
+          
+          <div className="flex flex-col items-center">
+            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-2">
+              <BarChart3 className="text-white" size={20} />
+            </div>
+            <span className="text-xs text-center">Grafik</span>
+          </div>
+          
+          <div className="flex flex-col items-center">
+            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-2">
+              <FileText className="text-white" size={20} />
+            </div>
+            <span className="text-xs text-center">Laporan</span>
+          </div>
+          
+          <div className="flex flex-col items-center">
+            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-2">
+              <Settings className="text-white" size={20} />
+            </div>
+            <span className="text-xs text-center">Pengaturan</span>
+          </div>
+
+          <div className="flex flex-col items-center">
+            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-2">
+              <MapPin className="text-white" size={20} />
+            </div>
+            <span className="text-xs text-center">Peta Lokasi</span>
+          </div>
+          
+          <div className="flex flex-col items-center">
+            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-2">
+              <Thermometer className="text-white" size={20} />
+            </div>
+            <span className="text-xs text-center">Suhu</span>
+          </div>
+          
+          <div className="flex flex-col items-center">
+            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-2">
+              <Wind className="text-white" size={20} />
+            </div>
+            <span className="text-xs text-center">Angin</span>
+          </div>
+          
+          <div className="flex flex-col items-center">
+            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-2">
+              <Cloud className="text-white" size={20} />
+            </div>
+            <span className="text-xs text-center">Cuaca</span>
+          </div>
+        </div>
+
+        {/* Wave Pattern */}
+        <div className="relative h-20 mt-6">
+          <svg className="absolute bottom-0 w-full" viewBox="0 0 400 100" preserveAspectRatio="none">
+            <path d="M0,50 Q100,20 200,50 T400,50 L400,100 L0,100 Z" fill="rgba(255,255,255,0.1)" />
+            <path d="M0,60 Q100,30 200,60 T400,60 L400,100 L0,100 Z" fill="rgba(255,255,255,0.05)" />
+          </svg>
+        </div>
       </div>
     </div>
   );

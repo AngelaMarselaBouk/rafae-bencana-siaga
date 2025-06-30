@@ -8,6 +8,7 @@ import { Report } from '../components/Report';
 import { Education } from '../components/Education';
 import { AdminPanel } from '../components/AdminPanel';
 import { NotificationSystem } from '../components/NotificationSystem';
+import { WeatherChart } from '../components/WeatherChart';
 import { LanguageProvider } from '../contexts/LanguageContext';
 
 const Index = () => {
@@ -19,6 +20,8 @@ const Index = () => {
         return <Dashboard />;
       case 'map':
         return <Map />;
+      case 'chart':
+        return <WeatherChart />;
       case 'emergency':
         return <Emergency />;
       case 'report':
