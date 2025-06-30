@@ -9,6 +9,10 @@ import { Education } from '../components/Education';
 import { AdminPanel } from '../components/AdminPanel';
 import { NotificationSystem } from '../components/NotificationSystem';
 import { WeatherChart } from '../components/WeatherChart';
+import { StatusAlert } from '../components/StatusAlert';
+import { WaterLevelStatus } from '../components/WaterLevelStatus';
+import { WeatherForecast } from '../components/WeatherForecast';
+import { CCTVMonitoring } from '../components/CCTVMonitoring';
 import { LanguageProvider } from '../contexts/LanguageContext';
 
 const Index = () => {
@@ -19,9 +23,17 @@ const Index = () => {
       case 'dashboard':
         return <Dashboard />;
       case 'map':
-        return <Map />;
+        return <Map onBack={() => setActiveTab('dashboard')} />;
       case 'chart':
-        return <WeatherChart />;
+        return <WeatherChart onBack={() => setActiveTab('dashboard')} />;
+      case 'status-alert':
+        return <StatusAlert onBack={() => setActiveTab('dashboard')} />;
+      case 'water-level':
+        return <WaterLevelStatus onBack={() => setActiveTab('dashboard')} />;
+      case 'weather-forecast':
+        return <WeatherForecast onBack={() => setActiveTab('dashboard')} />;
+      case 'cctv':
+        return <CCTVMonitoring onBack={() => setActiveTab('dashboard')} />;
       case 'emergency':
         return <Emergency />;
       case 'report':

@@ -1,144 +1,78 @@
 
-import React, { useState } from 'react';
-import { MapPin, Navigation, AlertTriangle, Shield, ArrowLeft, BarChart3 } from 'lucide-react';
-import { useLanguage } from '../contexts/LanguageContext';
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
+import React from 'react';
+import { ArrowLeft, MapPin } from 'lucide-react';
 import { Button } from './ui/button';
 
-export const Map: React.FC = () => {
-  const { t } = useLanguage();
-  const [selectedStation, setSelectedStation] = useState<string | null>(null);
-
-  const stations = [
-    { id: '1', name: 'PS. Cilangap', status: 'normal', level: '46°C', x: 20, y: 30 },
-    { id: '2', name: 'PS. Katulampa', status: 'normal', level: '55°C', x: 40, y: 25 },
-    { id: '3', name: 'PS. Depok', status: 'normal', level: '32°C', x: 35, y: 45 },
-    { id: '4', name: 'PS. Kp. Melayu', status: 'siaga', level: '519°C', x: 60, y: 40 },
-    { id: '5', name: 'Angke Hulu', status: 'awas', level: '216°C', x: 25, y: 60 },
-    { id: '6', name: 'Kali Duri', status: 'siaga', level: '212°C', x: 70, y: 35 },
-  ];
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'normal': return 'bg-green-500';
-      case 'siaga': return 'bg-yellow-500';
-      case 'awas': return 'bg-red-500';
-      default: return 'bg-gray-500';
-    }
-  };
-
+export const Map: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-cyan-400 via-blue-400 to-blue-500">
-      {/* Header */}
       <div className="p-4 text-white">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <Button variant="ghost" size="sm" className="text-white p-2">
-              <ArrowLeft size={20} />
-            </Button>
-            <h1 className="text-lg font-bold">Peta Lokasi Stasiun AWLR</h1>
-          </div>
-          <Button variant="outline" size="sm" className="bg-white/10 border-white/20 text-white hover:bg-white/20">
-            <Navigation size={16} className="mr-1" />
-            GPS
+        {/* Header */}
+        <div className="flex items-center gap-3 mb-6">
+          <Button variant="ghost" size="sm" className="text-white p-2" onClick={onBack}>
+            <ArrowLeft size={20} />
           </Button>
+          <h1 className="text-lg font-bold">Peta Lokasi Stasiun AWLR</h1>
         </div>
 
         {/* Map Container */}
-        <Card className="shadow-lg mb-4">
-          <CardContent className="p-0">
-            <div className="h-80 bg-gradient-to-br from-green-100 to-blue-100 rounded-lg relative overflow-hidden">
-              {/* Background map pattern */}
-              <div className="absolute inset-0 opacity-30">
-                <div className="w-full h-full bg-gradient-to-br from-green-200 via-blue-200 to-teal-200"></div>
-                {/* River lines */}
-                <svg className="absolute inset-0 w-full h-full">
-                  <path d="M0,200 Q100,180 200,200 T400,200" stroke="#3B82F6" strokeWidth="3" fill="none" opacity="0.6" />
-                  <path d="M150,0 Q170,100 150,200 T150,400" stroke="#3B82F6" strokeWidth="2" fill="none" opacity="0.6" />
-                </svg>
+        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+          <div className="relative h-96 bg-gray-200">
+            {/* Simulated Map with Markers */}
+            <div className="absolute inset-0 bg-gradient-to-br from-green-100 to-blue-100">
+              {/* Simulated markers */}
+              <div className="absolute top-16 left-20">
+                <MapPin className="text-green-600" size={24} />
               </div>
-
-              {/* Station markers */}
-              {stations.map((station) => (
-                <div
-                  key={station.id}
-                  className={`absolute w-6 h-6 rounded-full border-2 border-white shadow-lg cursor-pointer transform -translate-x-1/2 -translate-y-1/2 ${getStatusColor(station.status)}`}
-                  style={{ left: `${station.x}%`, top: `${station.y}%` }}
-                  onClick={() => setSelectedStation(station.id)}
-                >
-                  <div className="w-full h-full rounded-full animate-ping opacity-75"></div>
-                </div>
-              ))}
-
-              {/* Location labels */}
-              <div className="absolute bottom-4 left-4 text-xs text-gray-700 bg-white/80 px-2 py-1 rounded">
-                Jakarta Selatan
+              <div className="absolute top-24 left-32">
+                <MapPin className="text-green-600" size={24} />
               </div>
-              <div className="absolute top-4 right-4 text-xs text-gray-700 bg-white/80 px-2 py-1 rounded">
-                Bogor
+              <div className="absolute top-32 left-28">
+                <MapPin className="text-green-600" size={24} />
               </div>
-              <div className="absolute top-1/2 left-8 text-xs text-gray-700 bg-white/80 px-2 py-1 rounded">
-                Tangerang
+              <div className="absolute top-40 left-40">
+                <MapPin className="text-green-600" size={24} />
               </div>
+              <div className="absolute top-48 left-24">
+                <MapPin className="text-green-600" size={24} />
+              </div>
+              <div className="absolute top-56 left-36">
+                <MapPin className="text-green-600" size={24} />
+              </div>
+              <div className="absolute top-64 left-20">
+                <MapPin className="text-green-600" size={24} />
+              </div>
+              <div className="absolute top-72 left-32">
+                <MapPin className="text-green-600" size={24} />
+              </div>
+              <div className="absolute bottom-16 left-28">
+                <MapPin className="text-green-600" size={24} />
+              </div>
+              <div className="absolute bottom-24 left-40">
+                <MapPin className="text-green-600" size={24} />
+              </div>
+              
+              {/* Location Labels */}
+              <div className="absolute top-12 left-16 text-xs font-medium text-gray-700">Atambua</div>
+              <div className="absolute top-20 right-16 text-xs font-medium text-gray-700">Belu</div>
+              <div className="absolute bottom-12 left-16 text-xs font-medium text-gray-700">Kabupaten Belu</div>
+              <div className="absolute bottom-20 right-20 text-xs font-medium text-gray-700">NTT</div>
             </div>
-          </CardContent>
-        </Card>
-
-        {/* Station List */}
-        <Card className="shadow-lg mb-4">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm text-gray-800">Status Stasiun AWLR</CardTitle>
-          </CardHeader>
-          <CardContent className="pt-0">
-            <div className="space-y-2">
-              {stations.map((station) => (
-                <div
-                  key={station.id}
-                  className={`flex items-center justify-between p-2 rounded-lg border ${
-                    selectedStation === station.id ? 'bg-blue-50 border-blue-200' : 'bg-gray-50 border-gray-200'
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className={`w-3 h-3 rounded-full ${getStatusColor(station.status)}`}></div>
-                    <div>
-                      <p className="text-sm font-medium text-gray-800">{station.name}</p>
-                      <p className="text-xs text-gray-600 capitalize">{station.status}</p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm font-bold text-gray-800">{station.level}</p>
-                    <Button size="sm" variant="outline" className="mt-1 h-6 px-2 text-xs">
-                      <BarChart3 size={12} />
-                    </Button>
-                  </div>
-                </div>
-              ))}
+            
+            {/* Google Maps attribution */}
+            <div className="absolute bottom-2 left-2 text-xs text-gray-600 bg-white/80 px-2 py-1 rounded">
+              Google Maps
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
-        {/* Legend */}
-        <Card className="shadow-lg">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm text-gray-800">Keterangan</CardTitle>
-          </CardHeader>
-          <CardContent className="pt-0">
-            <div className="grid grid-cols-3 gap-3 text-xs">
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                <span className="text-gray-700">Normal</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                <span className="text-gray-700">Siaga</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                <span className="text-gray-700">Awas</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        {/* Wave Pattern */}
+        <div className="relative h-20 mt-8">
+          <svg className="absolute bottom-0 w-full" viewBox="0 0 400 100" preserveAspectRatio="none">
+            <path d="M0,50 Q100,20 200,50 T400,50 L400,100 L0,100 Z" fill="rgba(255,255,255,0.1)" />
+            <path d="M0,60 Q100,30 200,60 T400,60 L400,100 L0,100 Z" fill="rgba(255,255,255,0.05)" />
+          </svg>
+        </div>
       </div>
     </div>
   );
