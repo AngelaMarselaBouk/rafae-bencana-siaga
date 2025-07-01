@@ -11,52 +11,52 @@ export const WeatherForecast: React.FC<{ onBack?: () => void }> = ({ onBack }) =
 
   const todayForecast = [
     {
-      location: 'Kepulauan Seribu',
+      location: 'Atambua Pusat',
       periods: [
-        { time: 'Pagi', icon: Sun, condition: 'Hujan Ringan' },
+        { time: 'Pagi', icon: Sun, condition: 'Cerah' },
         { time: 'Siang', icon: CloudRain, condition: 'Hujan Ringan' },
+        { time: 'Malam', icon: Cloud, condition: 'Berawan' }
+      ]
+    },
+    {
+      location: 'Kabupaten Belu Utara',
+      periods: [
+        { time: 'Pagi', icon: Cloud, condition: 'Berawan' },
+        { time: 'Siang', icon: CloudRain, condition: 'Hujan Sedang' },
         { time: 'Malam', icon: CloudRain, condition: 'Hujan Ringan' }
       ]
     },
     {
-      location: 'Jakarta Utara',
+      location: 'Kabupaten Belu Selatan',
+      periods: [
+        { time: 'Pagi', icon: Sun, condition: 'Cerah' },
+        { time: 'Siang', icon: Sun, condition: 'Cerah' },
+        { time: 'Malam', icon: Cloud, condition: 'Berawan' }
+      ]
+    },
+    {
+      location: 'Motaain',
       periods: [
         { time: 'Pagi', icon: Cloud, condition: 'Berawan' },
         { time: 'Siang', icon: CloudRain, condition: 'Hujan Ringan' },
         { time: 'Malam', icon: CloudRain, condition: 'Hujan Ringan' }
-      ]
-    },
-    {
-      location: 'Jakarta Pusat',
-      periods: [
-        { time: 'Pagi', icon: Cloud, condition: 'Berawan' },
-        { time: 'Siang', icon: Sun, condition: 'Cerah' },
-        { time: 'Malam', icon: Sun, condition: 'Cerah' }
-      ]
-    },
-    {
-      location: 'Jakarta Selatan',
-      periods: [
-        { time: 'Pagi', icon: Cloud, condition: 'Berawan' },
-        { time: 'Siang', icon: Sun, condition: 'Cerah' },
-        { time: 'Malam', icon: Sun, condition: 'Cerah' }
       ]
     }
   ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-cyan-400 via-blue-400 to-blue-500">
-      <div className="p-4 text-white">
+      <div className="p-6 text-white max-w-4xl mx-auto">
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
           <Button variant="ghost" size="sm" className="text-white p-2" onClick={onBack}>
             <ArrowLeft size={20} />
           </Button>
-          <h1 className="text-lg font-bold">Prakiraan Cuaca</h1>
+          <h1 className="text-xl font-bold">Prakiraan Cuaca - Atambua</h1>
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-1 mb-4 bg-white/20 rounded-lg p-1">
+        <div className="flex gap-1 mb-6 bg-white/20 rounded-lg p-1">
           {tabs.map((tab) => (
             <button
               key={tab}
@@ -73,8 +73,8 @@ export const WeatherForecast: React.FC<{ onBack?: () => void }> = ({ onBack }) =
         </div>
 
         {/* Forecast Content */}
-        <div className="bg-white rounded-t-3xl -mx-4 px-4 py-6 min-h-96">
-          <div className="space-y-4">
+        <div className="bg-white rounded-lg shadow-lg p-6">
+          <div className="grid gap-6 md:grid-cols-2">
             {todayForecast.map((area, index) => (
               <div key={index}>
                 <h3 className="font-semibold text-cyan-600 mb-3">{area.location}</h3>
@@ -107,7 +107,7 @@ export const WeatherForecast: React.FC<{ onBack?: () => void }> = ({ onBack }) =
           
           <div className="mt-6 pt-4 border-t border-gray-200">
             <p className="text-xs text-gray-500 text-center">
-              Sumber: Badan Meteorologi, Klimatologi, dan Geofisika
+              Sumber: Badan Meteorologi, Klimatologi, dan Geofisika - Stasiun Meteorologi Atambua
             </p>
           </div>
         </div>

@@ -7,41 +7,41 @@ import { Button } from './ui/button';
 export const WaterLevelStatus: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
   const [activeTab, setActiveTab] = useState('SEMUA');
 
-  const tabs = ['SEMUA', 'CILIWUNG', 'KRUKUT', 'SUNTER', 'CIPINANG'];
+  const tabs = ['SEMUA', 'BENANAIN', 'MALIBACA', 'TAFETO', 'MOTAAIN'];
 
   const stationData = [
     {
-      name: 'PS. Cibogo',
-      river: 'Ciliwung',
-      level: '46',
+      name: 'Stasiun Atambua Pusat',
+      river: 'Sungai Benanain',
+      level: '145',
       status: 'Normal',
       time: '11:30'
     },
     {
-      name: 'PS. Katulampa (Hulu)',
-      river: 'Ciliwung',
-      level: '55',
+      name: 'Stasiun Belu Selatan',
+      river: 'Sungai Malibaca',
+      level: '132',
       status: 'Normal',
       time: '11:30'
     },
     {
-      name: 'PS. Depok',
-      river: 'Ciliwung',
-      level: '32',
+      name: 'Stasiun Tasifeto',
+      river: 'Sungai Tafeto',
+      level: '118',
       status: 'Normal',
       time: '11:30'
     },
     {
-      name: 'PS. Kp. Melayu',
-      river: 'Ciliwung',
-      level: '519',
+      name: 'Stasiun Motaain',
+      river: 'Sungai Motaain',
+      level: '156',
       status: 'Normal',
       time: '11:30'
     },
     {
-      name: 'PA. Manggarai',
-      river: 'Ciliwung',
-      level: '514',
+      name: 'Stasiun Raihat',
+      river: 'Sungai Benanain',
+      level: '142',
       status: 'Normal',
       time: '11:30'
     }
@@ -49,14 +49,14 @@ export const WaterLevelStatus: React.FC<{ onBack?: () => void }> = ({ onBack }) 
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-cyan-400 via-blue-400 to-blue-500">
-      <div className="p-4 text-white">
+      <div className="p-6 text-white max-w-4xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
             <Button variant="ghost" size="sm" className="text-white p-2" onClick={onBack}>
               <ArrowLeft size={20} />
             </Button>
-            <h1 className="text-lg font-bold">Status Tinggi Muka Air</h1>
+            <h1 className="text-xl font-bold">Status Tinggi Muka Air - Atambua</h1>
           </div>
           <Button variant="ghost" size="sm" className="text-white p-2">
             <Bell size={16} />
@@ -64,7 +64,7 @@ export const WaterLevelStatus: React.FC<{ onBack?: () => void }> = ({ onBack }) 
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-1 mb-4 bg-white/20 rounded-lg p-1">
+        <div className="flex gap-1 mb-6 bg-white/20 rounded-lg p-1">
           {tabs.map((tab) => (
             <button
               key={tab}
@@ -81,8 +81,8 @@ export const WaterLevelStatus: React.FC<{ onBack?: () => void }> = ({ onBack }) 
         </div>
 
         {/* Station List */}
-        <div className="bg-white rounded-t-3xl -mx-4 px-4 py-6 min-h-96">
-          <div className="space-y-3">
+        <div className="bg-white rounded-lg shadow-lg p-6">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {stationData.map((station, index) => (
               <Card key={index} className="shadow-sm">
                 <CardContent className="p-4">

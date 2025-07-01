@@ -7,25 +7,25 @@ import { Button } from './ui/button';
 export const StatusAlert: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
   const statusData = [
     {
-      title: 'Pompa Pasar Ikan',
-      location: 'Laut',
-      level: '216',
+      title: 'Stasiun Atambua Pusat',
+      location: 'Sungai Benanain',
+      level: '145',
       status: 'Siaga 2',
       statusColor: 'bg-orange-400',
       time: '11:30'
     },
     {
-      title: 'PS. Angka Hulu',
-      location: 'Sungai',
-      level: '216',
+      title: 'Stasiun Belu Selatan',
+      location: 'Sungai Malibaca',
+      level: '132',
       status: 'Siaga 3',
       statusColor: 'bg-yellow-400',
       time: '11:30'
     },
     {
-      title: 'Pompa Kali Duri (Kalijodo)',
-      location: 'Kali Duri',
-      level: '212',
+      title: 'Stasiun Tasifeto',
+      location: 'Sungai Tafeto',
+      level: '118',
       status: 'Siaga 3',
       statusColor: 'bg-yellow-400',
       time: '11:30'
@@ -34,17 +34,17 @@ export const StatusAlert: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-cyan-400 via-blue-400 to-blue-500">
-      <div className="p-4 text-white">
+      <div className="p-6 text-white max-w-4xl mx-auto">
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
           <Button variant="ghost" size="sm" className="text-white p-2" onClick={onBack}>
             <ArrowLeft size={20} />
           </Button>
-          <h1 className="text-lg font-bold">Status Siaga</h1>
+          <h1 className="text-xl font-bold">Status Siaga - Atambua</h1>
         </div>
 
         {/* Status Cards */}
-        <div className="space-y-3">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {statusData.map((item, index) => (
             <Card key={index} className={`${item.statusColor} text-white shadow-lg`}>
               <CardContent className="p-4">

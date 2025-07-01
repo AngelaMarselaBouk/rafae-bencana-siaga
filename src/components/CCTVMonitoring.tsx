@@ -7,25 +7,25 @@ import { Button } from './ui/button';
 export const CCTVMonitoring: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-cyan-400 via-blue-400 to-blue-500">
-      <div className="p-4 text-white">
+      <div className="p-6 text-white max-w-4xl mx-auto">
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
           <Button variant="ghost" size="sm" className="text-white p-2" onClick={onBack}>
             <ArrowLeft size={20} />
           </Button>
-          <h1 className="text-lg font-bold">P.A. Marina Ancol</h1>
+          <h1 className="text-xl font-bold">Stasiun Atambua Pusat</h1>
         </div>
 
         {/* CCTV Feed */}
         <Card className="shadow-lg mb-6">
           <CardContent className="p-0">
-            <div className="relative h-64 bg-gray-800 rounded-lg overflow-hidden">
+            <div className="relative h-80 bg-gray-800 rounded-lg overflow-hidden">
               {/* Simulated CCTV Feed */}
               <div className="absolute inset-0 bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center">
                 <div className="text-center">
                   <Video className="text-white/50 mx-auto mb-2" size={48} />
                   <p className="text-white/70 text-sm">Live CCTV Feed</p>
-                  <p className="text-white/50 text-xs">Marina Ancol Station</p>
+                  <p className="text-white/50 text-xs">Stasiun Atambua Pusat</p>
                 </div>
               </div>
               

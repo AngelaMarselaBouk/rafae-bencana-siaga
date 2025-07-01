@@ -51,32 +51,11 @@ const Index = () => {
 
   return (
     <LanguageProvider>
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
-        {/* Phone Container */}
-        <div className="relative w-full max-w-sm mx-auto">
-          {/* Phone Frame */}
-          <div className="relative bg-black rounded-[2.5rem] p-2 shadow-2xl">
-            {/* Screen */}
-            <div className="bg-white rounded-[2rem] overflow-hidden relative">
-              {/* Notch */}
-              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-50"></div>
-              
-              {/* Screen Content - Made scrollable */}
-              <div className="relative bg-gradient-to-br from-blue-50 via-cyan-50 to-teal-50 h-[640px] overflow-hidden">
-                <div className="pb-20 h-full overflow-y-auto scrollbar-hide">
-                  {renderContent()}
-                </div>
-                <Navigation activeTab={activeTab} onTabChange={setActiveTab} />
-              </div>
-            </div>
-            
-            {/* Home Indicator */}
-            <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-white rounded-full opacity-60"></div>
-          </div>
-          
-          {/* Phone Shadow */}
-          <div className="absolute inset-0 bg-black/20 rounded-[2.5rem] blur-xl transform translate-y-4 -z-10"></div>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-teal-50">
+        <div className="relative pb-20 min-h-screen">
+          {renderContent()}
         </div>
+        <Navigation activeTab={activeTab} onTabChange={setActiveTab} />
       </div>
     </LanguageProvider>
   );
