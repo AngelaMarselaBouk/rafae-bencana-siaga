@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { BookOpen, Shield, Briefcase, Users, Play } from 'lucide-react';
+import { BookOpen, Shield, Briefcase, Users, Play, ExternalLink } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
@@ -9,6 +9,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 export const Education: React.FC = () => {
   const { t } = useLanguage();
   const [selectedTopic, setSelectedTopic] = useState('preparation');
+
+  const videoUrl = 'https://youtu.be/0SE7Xh5NFAI?si=ItVptXIDKRU3m16m';
 
   const educationContent = {
     preparation: {
@@ -49,6 +51,10 @@ export const Education: React.FC = () => {
     }
   };
 
+  const handleVideoClick = () => {
+    window.open(videoUrl, '_blank');
+  };
+
   return (
     <div className="p-4 space-y-6">
       <div>
@@ -59,15 +65,25 @@ export const Education: React.FC = () => {
       {/* Video Section */}
       <Card className="shadow-lg">
         <CardContent className="p-0">
-          <div className="relative h-48 bg-gradient-to-br from-blue-400 to-blue-600 rounded-t-lg flex items-center justify-center">
+          <div 
+            className="relative h-48 bg-gradient-to-br from-blue-400 to-blue-600 rounded-t-lg flex items-center justify-center cursor-pointer hover:from-blue-500 hover:to-blue-700 transition-all"
+            onClick={handleVideoClick}
+          >
             <div className="text-center text-white">
-              <Play className="w-16 h-16 mx-auto mb-2 opacity-80" />
+              <Play className="w-16 h-16 mx-auto mb-2 opacity-80 hover:opacity-100 transition-opacity" />
               <p className="font-medium">Video Panduan Evakuasi Banjir</p>
               <p className="text-sm opacity-80">Durasi: 5 menit</p>
+              <div className="flex items-center justify-center gap-1 mt-2">
+                <ExternalLink size={14} />
+                <span className="text-xs">Tonton di YouTube</span>
+              </div>
             </div>
           </div>
           <div className="p-4">
-            <Button className="w-full bg-blue-600 hover:bg-blue-700">
+            <Button 
+              className="w-full bg-blue-600 hover:bg-blue-700"
+              onClick={handleVideoClick}
+            >
               <Play size={16} className="mr-2" />
               Tonton Video
             </Button>

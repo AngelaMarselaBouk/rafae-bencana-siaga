@@ -1,7 +1,8 @@
 
 import React from 'react';
-import { ArrowLeft, MapPin } from 'lucide-react';
+import { ArrowLeft, Info, Phone, MapPin, Clock, AlertTriangle } from 'lucide-react';
 import { Button } from './ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 
 export const Map: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
   return (
@@ -12,52 +13,95 @@ export const Map: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
           <Button variant="ghost" size="sm" className="text-white p-2" onClick={onBack}>
             <ArrowLeft size={20} />
           </Button>
-          <h1 className="text-xl font-bold">Peta Lokasi Stasiun AWLR - Atambua</h1>
+          <h1 className="text-xl font-bold">Informasi Wilayah Atambua</h1>
         </div>
 
-        {/* Map Container */}
-        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-          <div className="relative h-96 bg-gray-200">
-            {/* Simulated Map with Markers */}
-            <div className="absolute inset-0 bg-gradient-to-br from-green-100 to-blue-100">
-              {/* Simulated markers for Atambua area */}
-              <div className="absolute top-16 left-20">
-                <MapPin className="text-green-600" size={24} />
-                <span className="text-xs text-gray-700 ml-1">Stasiun Atambua Pusat</span>
+        {/* Info Cards */}
+        <div className="space-y-4">
+          <Card className="bg-white/95 backdrop-blur-sm shadow-lg">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-blue-600">
+                <Info size={20} />
+                Informasi Wilayah
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <div className="flex items-start gap-3">
+                <MapPin className="text-blue-500 mt-1" size={16} />
+                <div>
+                  <p className="font-medium text-gray-800">Lokasi</p>
+                  <p className="text-sm text-gray-600">Atambua, Kabupaten Belu, Nusa Tenggara Timur</p>
+                </div>
               </div>
-              <div className="absolute top-24 left-32">
-                <MapPin className="text-green-600" size={24} />
-                <span className="text-xs text-gray-700 ml-1">Stasiun Belu Selatan</span>
+              <div className="flex items-start gap-3">
+                <AlertTriangle className="text-orange-500 mt-1" size={16} />
+                <div>
+                  <p className="font-medium text-gray-800">Status Stasiun AWLR</p>
+                  <p className="text-sm text-gray-600">Saat ini belum tersedia stasiun AWLR di wilayah Atambua</p>
+                </div>
               </div>
-              <div className="absolute top-32 left-28">
-                <MapPin className="text-green-600" size={24} />
-                <span className="text-xs text-gray-700 ml-1">Stasiun Tasifeto</span>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-white/95 backdrop-blur-sm shadow-lg">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-green-600">
+                <Phone size={20} />
+                Kontak Darurat
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="text-center p-3 bg-red-50 rounded-lg">
+                  <p className="font-bold text-red-600 text-lg">112</p>
+                  <p className="text-xs text-red-700">Darurat Nasional</p>
+                </div>
+                <div className="text-center p-3 bg-blue-50 rounded-lg">
+                  <p className="font-bold text-blue-600 text-lg">117</p>
+                  <p className="text-xs text-blue-700">SAR Nasional</p>
+                </div>
               </div>
-              <div className="absolute top-40 left-40">
-                <MapPin className="text-green-600" size={24} />
-                <span className="text-xs text-gray-700 ml-1">Stasiun Motaain</span>
+              <div className="space-y-2">
+                <div className="flex justify-between items-center p-2 bg-gray-50 rounded">
+                  <span className="text-sm text-gray-700">BPBD Kabupaten Belu</span>
+                  <span className="text-sm font-medium text-blue-600">(0389) 21234</span>
+                </div>
+                <div className="flex justify-between items-center p-2 bg-gray-50 rounded">
+                  <span className="text-sm text-gray-700">Polres Belu</span>
+                  <span className="text-sm font-medium text-blue-600">(0389) 21110</span>
+                </div>
+                <div className="flex justify-between items-center p-2 bg-gray-50 rounded">
+                  <span className="text-sm text-gray-700">PMI Kabupaten Belu</span>
+                  <span className="text-sm font-medium text-blue-600">(0389) 21500</span>
+                </div>
               </div>
-              <div className="absolute top-48 left-24">
-                <MapPin className="text-green-600" size={24} />
-                <span className="text-xs text-gray-700 ml-1">Stasiun Raihat</span>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-white/95 backdrop-blur-sm shadow-lg">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-purple-600">
+                <Clock size={20} />
+                Jam Operasional
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-700">Pusat Informasi</span>
+                  <span className="text-sm font-medium">24 Jam</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-700">BPBD Kabupaten</span>
+                  <span className="text-sm font-medium">08:00 - 16:00</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-700">Pos Keamanan</span>
+                  <span className="text-sm font-medium">24 Jam</span>
+                </div>
               </div>
-              <div className="absolute top-56 left-36">
-                <MapPin className="text-green-600" size={24} />
-                <span className="text-xs text-gray-700 ml-1">Stasiun Lamaknen</span>
-              </div>
-              
-              {/* Location Labels */}
-              <div className="absolute top-12 left-16 text-sm font-medium text-gray-700">Atambua</div>
-              <div className="absolute top-20 right-16 text-sm font-medium text-gray-700">Kabupaten Belu</div>
-              <div className="absolute bottom-12 left-16 text-sm font-medium text-gray-700">Nusa Tenggara Timur</div>
-              <div className="absolute bottom-20 right-20 text-sm font-medium text-gray-700">Indonesia</div>
-            </div>
-            
-            {/* Google Maps attribution */}
-            <div className="absolute bottom-2 left-2 text-xs text-gray-600 bg-white/80 px-2 py-1 rounded">
-              Google Maps
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Wave Pattern */}
