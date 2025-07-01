@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { ArrowLeft, Info, Phone, MapPin, Clock, AlertTriangle, Navigation } from 'lucide-react';
+import { ArrowLeft, Info, Phone, MapPin, Clock, AlertTriangle, Navigation, ExternalLink } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 
@@ -13,24 +12,40 @@ export const Map: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
           <Button variant="ghost" size="sm" className="text-white p-2" onClick={onBack}>
             <ArrowLeft size={20} />
           </Button>
-          <h1 className="text-xl font-bold">Peta Wilayah Atambua</h1>
+          <h1 className="text-xl font-bold">Peta Lokasi Atambua</h1>
         </div>
 
-        {/* Map Container */}
+        {/* Google Maps Container */}
         <Card className="bg-white/95 backdrop-blur-sm shadow-lg mb-4">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-blue-600">
+              <MapPin size={20} />
+              Lokasi Atambua, Kabupaten Belu
+            </CardTitle>
+          </CardHeader>
           <CardContent className="p-4">
-            <div className="h-80 bg-gradient-to-br from-blue-100 to-green-100 rounded-lg flex items-center justify-center relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-200/50 to-green-200/50"></div>
-              <div className="text-center z-10">
-                <Navigation className="text-blue-600 mx-auto mb-2" size={48} />
-                <p className="text-blue-700 font-medium">Peta Interaktif Atambua</p>
-                <p className="text-blue-600 text-sm">Kabupaten Belu, Nusa Tenggara Timur</p>
-              </div>
-              
-              {/* Simulated location markers */}
-              <div className="absolute top-20 left-16 w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
-              <div className="absolute top-32 right-20 w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
-              <div className="absolute bottom-24 left-24 w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+            <div className="h-80 rounded-lg overflow-hidden shadow-inner">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15860.234567890123!2d125.0941!3d-9.1058!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c57bb7c0c7c7c7c%3A0x7c7c7c7c7c7c7c7c!2sAtambua%2C%20Belu%20Regency%2C%20East%20Nusa%20Tenggara!5e0!3m2!1sen!2sid!4v1640995200000!5m2!1sen!2sid"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Peta Atambua"
+              ></iframe>
+            </div>
+            <div className="mt-4 flex justify-center">
+              <Button 
+                variant="outline" 
+                size="sm"
+                className="text-blue-600 border-blue-600 hover:bg-blue-50"
+                onClick={() => window.open('https://g.co/kgs/DjrwNv6', '_blank')}
+              >
+                <ExternalLink size={16} className="mr-2" />
+                Buka di Google Maps
+              </Button>
             </div>
           </CardContent>
         </Card>
@@ -56,7 +71,7 @@ export const Map: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
                 <AlertTriangle className="text-orange-500 mt-1" size={16} />
                 <div>
                   <p className="font-medium text-gray-800">Status Sistem Otomatis</p>
-                  <p className="text-sm text-gray-600">Saat ini belum tersedia sistem AWLR otomatis di wilayah Atambua</p>
+                  <p className="text-sm text-gray-600">Sistem pemantauan banjir terintegrasi dengan pos pengamatan manual</p>
                 </div>
               </div>
             </CardContent>

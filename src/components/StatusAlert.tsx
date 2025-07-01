@@ -7,7 +7,7 @@ import { Button } from './ui/button';
 export const StatusAlert: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
   const statusData = [
     {
-      title: 'Stasiun Atambua Pusat',
+      title: 'Stasiun Monitoring Benanain',
       location: 'Sungai Benanain',
       level: '145',
       status: 'Siaga 2',
@@ -15,7 +15,7 @@ export const StatusAlert: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
       time: '11:30'
     },
     {
-      title: 'Stasiun Belu Selatan',
+      title: 'Stasiun Pemantauan Malibaca',
       location: 'Sungai Malibaca',
       level: '132',
       status: 'Siaga 3',
@@ -23,11 +23,19 @@ export const StatusAlert: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
       time: '11:30'
     },
     {
-      title: 'Stasiun Tasifeto',
+      title: 'Stasiun Pengawasan Tafeto',
       location: 'Sungai Tafeto',
       level: '118',
       status: 'Siaga 3',
       statusColor: 'bg-yellow-400',
+      time: '11:30'
+    },
+    {
+      title: 'Stasiun Observasi Motaain',
+      location: 'Sungai Motaain',
+      level: '98',
+      status: 'Normal',
+      statusColor: 'bg-green-400',
       time: '11:30'
     }
   ];
@@ -44,7 +52,7 @@ export const StatusAlert: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
         </div>
 
         {/* Status Cards */}
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
           {statusData.map((item, index) => (
             <Card key={index} className={`${item.statusColor} text-white shadow-lg`}>
               <CardContent className="p-4">
@@ -60,13 +68,33 @@ export const StatusAlert: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
                   <div className="text-right">
                     <p className="text-xs opacity-75">{item.time}</p>
                     <p className="text-2xl font-bold">{item.level}</p>
-                    <p className="text-xs">cm ↓</p>
+                    <p className="text-xs">cm {item.status === 'Normal' ? '↔' : '↑'}</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
           ))}
         </div>
+
+        {/* Alert Summary */}
+        <Card className="bg-white/20 backdrop-blur-sm border-white/30 text-white shadow-xl mb-4 mt-6">
+          <CardContent className="p-4">
+            <div className="text-center">
+              <h3 className="font-bold text-lg mb-2">Ringkasan Status</h3>
+              <div className="grid grid-cols-3 gap-4 text-sm">
+                <div>
+                  <p className="font-semibold text-green-200">Normal: 1</p>
+                </div>
+                <div>
+                  <p className="font-semibold text-yellow-200">Siaga 3: 2</p>
+                </div>
+                <div>
+                  <p className="font-semibold text-orange-200">Siaga 2: 1</p>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Wave Pattern */}
         <div className="relative h-20 mt-8">

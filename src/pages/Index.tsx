@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Navigation } from '../components/Navigation';
 import { Dashboard } from '../components/Dashboard';
@@ -39,7 +38,7 @@ const Index = () => {
       case 'report':
         return <Report />;
       case 'notifications':
-        return <NotificationSystem />;
+        return <NotificationSystem onBack={() => setActiveTab('dashboard')} />;
       case 'admin':
         return <AdminPanel />;
       case 'education':

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { AlertTriangle, Cloud, Droplets, Languages, Bell, MapPin, FileText, Shield, Settings, Users, BarChart3, Thermometer, Wind, Camera, Video, Eye, Zap, Waves } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -45,9 +44,9 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
     },
     { 
       icon: MapPin, 
-      label: 'Prediksi Cuaca', 
+      label: 'Peta Lokasi', 
       color: 'bg-teal-100 text-teal-600',
-      action: () => onNavigate?.('weather-forecast')
+      action: () => onNavigate?.('map')
     },
     { 
       icon: Users, 
@@ -57,9 +56,9 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
     },
     { 
       icon: Bell, 
-      label: 'Laporan Masyarakat', 
+      label: 'Sistem Notifikasi', 
       color: 'bg-yellow-100 text-yellow-600',
-      action: () => onNavigate?.('report')
+      action: () => onNavigate?.('notifications')
     },
     { 
       icon: Shield, 
@@ -71,7 +70,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
       icon: Eye, 
       label: 'Sistem Otomatis', 
       color: 'bg-cyan-100 text-cyan-600',
-      action: () => onNavigate?.('map')
+      action: () => onNavigate?.('notifications')
     },
     { 
       icon: Zap, 
@@ -108,10 +107,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
             <Button 
               variant="ghost" 
               size="sm" 
-              className="text-white p-2"
+              className="text-white p-2 relative"
               onClick={() => onNavigate?.('notifications')}
             >
               <Bell size={16} />
+              <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse"></span>
             </Button>
           </div>
         </div>
