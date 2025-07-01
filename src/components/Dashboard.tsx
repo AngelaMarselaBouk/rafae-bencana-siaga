@@ -1,6 +1,8 @@
+
 import React, { useState } from 'react';
-import { AlertTriangle, Cloud, Droplets, Languages, Bell, MapPin, FileText, Shield, Settings, Users, BarChart3, Thermometer, Wind, Camera, Video, Eye, Zap, Waves } from 'lucide-react';
+import { AlertTriangle, Cloud, Droplets, Languages, Bell, MapPin, FileText, Shield, Settings, Users, BarChart3, Thermometer, Wind, Camera, Video, Eye, Zap, Waves, LogOut } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useAuth } from './AuthProvider';
 import { Button } from './ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 
@@ -10,6 +12,7 @@ interface DashboardProps {
 
 export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
   const { t, language, setLanguage } = useLanguage();
+  const { user, logout } = useAuth();
 
   const menuItems = [
     { 
@@ -113,8 +116,34 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
               <Bell size={16} />
               <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse"></span>
             </Button>
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="text-white p-2"
+              onClick={logout}
+              title="Keluar"
+            >
+              <LogOut size={16} />
+            </Button>
           </div>
         </div>
+
+        {/* User Welcome */}
+        <Card className="bg-white/20 backdrop-blur-sm border-white/30 text-white shadow-xl mb-4">
+          <CardContent className="p-4">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                <span className="text-white font-semibold text-sm">
+                  {user?.name.charAt(0).toUpperCase()}
+                </span>
+              </div>
+              <div>
+                <p className="text-white font-medium">Selamat datang, {user?.name}</p>
+                <p className="text-white/80 text-xs">{user?.email}</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Main Header Card */}
         <Card className="bg-white/20 backdrop-blur-sm border-white/30 text-white shadow-xl mb-4">
