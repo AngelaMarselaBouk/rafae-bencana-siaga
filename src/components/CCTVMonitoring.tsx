@@ -13,7 +13,7 @@ export const CCTVMonitoring: React.FC<{ onBack?: () => void }> = ({ onBack }) =>
           <Button variant="ghost" size="sm" className="text-white p-2" onClick={onBack}>
             <ArrowLeft size={20} />
           </Button>
-          <h1 className="text-xl font-bold">Stasiun Atambua Pusat</h1>
+          <h1 className="text-xl font-bold">Pos Pengamatan Atambua Pusat</h1>
         </div>
 
         {/* CCTV Feed */}
@@ -25,7 +25,7 @@ export const CCTVMonitoring: React.FC<{ onBack?: () => void }> = ({ onBack }) =>
                 <div className="text-center">
                   <Video className="text-white/50 mx-auto mb-2" size={48} />
                   <p className="text-white/70 text-sm">Live CCTV Feed</p>
-                  <p className="text-white/50 text-xs">Stasiun Atambua Pusat</p>
+                  <p className="text-white/50 text-xs">Pos Pengamatan Atambua Pusat</p>
                 </div>
               </div>
               

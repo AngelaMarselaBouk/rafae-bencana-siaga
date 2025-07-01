@@ -27,7 +27,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
     },
     { 
       icon: Droplets, 
-      label: 'Pos Lokasi Stasiun', 
+      label: 'Pos Lokasi Pengamatan', 
       color: 'bg-green-100 text-green-600',
       action: () => onNavigate?.('water-level')
     },
@@ -69,7 +69,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
     },
     { 
       icon: Eye, 
-      label: 'Stasiun Otomatis', 
+      label: 'Sistem Otomatis', 
       color: 'bg-cyan-100 text-cyan-600',
       action: () => onNavigate?.('map')
     },
