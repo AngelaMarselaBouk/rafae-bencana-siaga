@@ -1,11 +1,15 @@
 
 import React, { useState } from 'react';
-import { ArrowLeft, Calendar, Cloud, Sun, CloudRain, MapPin, Video, History } from 'lucide-react';
+import { ArrowLeft, Calendar, Cloud, Sun, CloudRain, MapPin, Video, History, Thermometer } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 
 export const WeatherChart: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
   const [activeView, setActiveView] = useState('chart');
+
+  const currentTemp = '27°C';
+  const humidity = '75%';
+  const windSpeed = '12 km/h';
 
   const renderContent = () => {
     switch (activeView) {
@@ -16,6 +20,12 @@ export const WeatherChart: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
               <MapPin className="text-blue-600 mx-auto mb-2" size={48} />
               <p className="text-blue-700 font-medium">Peta Lokasi</p>
               <p className="text-blue-600 text-sm">Pos Pengamatan Atambua Pusat</p>
+              <div className="mt-4 bg-white/80 rounded-lg p-3">
+                <div className="flex items-center justify-center gap-2 text-sm">
+                  <Thermometer className="text-red-500" size={16} />
+                  <span className="font-medium text-gray-700">Suhu: {currentTemp}</span>
+                </div>
+              </div>
             </div>
           </div>
         );
@@ -30,6 +40,12 @@ export const WeatherChart: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
               <div className="absolute top-4 right-4 bg-red-500 text-white text-xs px-2 py-1 rounded">
                 LIVE
               </div>
+              <div className="mt-4 bg-white/10 rounded-lg p-3">
+                <div className="flex items-center justify-center gap-2 text-sm">
+                  <Thermometer className="text-red-400" size={16} />
+                  <span>Suhu: {currentTemp}</span>
+                </div>
+              </div>
             </div>
           </div>
         );
@@ -42,25 +58,55 @@ export const WeatherChart: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
               <p className="text-purple-700 font-medium text-sm">Data Historis 7 Hari</p>
             </div>
             <div className="space-y-2 text-xs text-gray-600">
-              <div className="flex justify-between p-2 bg-purple-50 rounded">
+              <div className="flex justify-between items-center p-2 bg-purple-50 rounded">
                 <span>2024-01-14</span>
-                <span>142 cm (Normal)</span>
+                <div className="text-right">
+                  <div>142 cm (Normal)</div>
+                  <div className="flex items-center gap-1 text-xs text-gray-500">
+                    <Thermometer size={10} />
+                    27°C
+                  </div>
+                </div>
               </div>
-              <div className="flex justify-between p-2 bg-purple-50 rounded">
+              <div className="flex justify-between items-center p-2 bg-purple-50 rounded">
                 <span>2024-01-13</span>
-                <span>138 cm (Normal)</span>
+                <div className="text-right">
+                  <div>138 cm (Normal)</div>
+                  <div className="flex items-center gap-1 text-xs text-gray-500">
+                    <Thermometer size={10} />
+                    26°C
+                  </div>
+                </div>
               </div>
-              <div className="flex justify-between p-2 bg-purple-50 rounded">
+              <div className="flex justify-between items-center p-2 bg-purple-50 rounded">
                 <span>2024-01-12</span>
-                <span>145 cm (Normal)</span>
+                <div className="text-right">
+                  <div>145 cm (Normal)</div>
+                  <div className="flex items-center gap-1 text-xs text-gray-500">
+                    <Thermometer size={10} />
+                    28°C
+                  </div>
+                </div>
               </div>
-              <div className="flex justify-between p-2 bg-purple-50 rounded">
+              <div className="flex justify-between items-center p-2 bg-purple-50 rounded">
                 <span>2024-01-11</span>
-                <span>148 cm (Siaga 3)</span>
+                <div className="text-right">
+                  <div>148 cm (Siaga 3)</div>
+                  <div className="flex items-center gap-1 text-xs text-gray-500">
+                    <Thermometer size={10} />
+                    29°C
+                  </div>
+                </div>
               </div>
-              <div className="flex justify-between p-2 bg-purple-50 rounded">
+              <div className="flex justify-between items-center p-2 bg-purple-50 rounded">
                 <span>2024-01-10</span>
-                <span>144 cm (Normal)</span>
+                <div className="text-right">
+                  <div>144 cm (Normal)</div>
+                  <div className="flex items-center gap-1 text-xs text-gray-500">
+                    <Thermometer size={10} />
+                    27°C
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -140,14 +186,36 @@ export const WeatherChart: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
       <div className="p-6 text-white max-w-4xl mx-auto">
         {/* Header */}
         <div className="flex items-center gap-3 mb-4">
-          <Button variant="ghost" size="sm" className="text-white p-2" onClick={onBack}>
+          <Button variant="ghost" size="sm" className="text-white p-2 hover:bg-white/20" onClick={onBack}>
             <ArrowLeft size={20} />
           </Button>
           <h1 className="text-xl font-bold">Pos Pengamatan Atambua Pusat</h1>
         </div>
 
+        {/* Weather Info Card */}
+        <Card className="shadow-lg mb-4 bg-white/95 backdrop-blur-sm">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                  <Thermometer className="text-red-500" size={20} />
+                  <span className="text-lg font-bold text-gray-800">{currentTemp}</span>
+                </div>
+                <div className="text-sm text-gray-600">
+                  <p>Kelembaban: {humidity}</p>
+                  <p>Angin: {windSpeed}</p>
+                </div>
+              </div>
+              <div className="text-right text-sm text-gray-600">
+                <p>Status: Normal</p>
+                <p>Update: 11:30 WIB</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Chart Card */}
-        <Card className="shadow-lg mb-4">
+        <Card className="shadow-lg mb-4 bg-white/95 backdrop-blur-sm">
           <CardHeader className="pb-2">
             <CardTitle className="text-lg text-gray-800">
               {activeView === 'chart' && 'Grafik Status 24 Jam Terakhir'}
@@ -157,10 +225,10 @@ export const WeatherChart: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
             </CardTitle>
             <div className="text-sm text-gray-600">
               <p>⏰ Kemarin, 12:00 s/d Hari ini, 11:30</p>
-              <p>Status Terakhir: 145 cm (Normal)</p>
+              <p>Status Terakhir: 145 cm (Normal) | Suhu: {currentTemp}</p>
             </div>
             {activeView === 'chart' && (
-              <div className="flex gap-4 text-xs text-gray-600">
+              <div className="flex gap-4 text-xs text-gray-600 flex-wrap">
                 <span className="flex items-center gap-1">
                   <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                   &lt;120 cm (Normal)
@@ -184,34 +252,34 @@ export const WeatherChart: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
             {renderContent()}
 
             {/* Chart Controls */}
-            <div className="flex justify-center gap-2 mt-4">
+            <div className="flex justify-center gap-2 mt-4 flex-wrap">
               <Button 
                 size="sm" 
-                className={`text-xs ${activeView === 'chart' ? 'bg-cyan-500 text-white' : 'bg-gray-100 text-gray-700'}`}
+                className={`text-xs ${activeView === 'chart' ? 'bg-cyan-500 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
                 onClick={() => setActiveView('chart')}
               >
                 GRAFIK
               </Button>
               <Button 
                 size="sm" 
-                className={`text-xs ${activeView === 'map' ? 'bg-cyan-500 text-white' : 'bg-gray-100 text-gray-700'}`}
+                className={`text-xs ${activeView === 'map' ? 'bg-cyan-500 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
                 onClick={() => setActiveView('map')}
               >
                 PETA
               </Button>
               <Button 
                 size="sm" 
-                className={`text-xs ${activeView === 'cctv' ? 'bg-cyan-500 text-white' : 'bg-gray-100 text-gray-700'}`}
+                className={`text-xs ${activeView === 'cctv' ? 'bg-cyan-500 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
                 onClick={() => setActiveView('cctv')}
               >
                 CCTV
               </Button>
               <Button 
                 size="sm" 
-                className={`text-xs ${activeView === 'history' ? 'bg-cyan-500 text-white' : 'bg-gray-100 text-gray-700'}`}
+                className={`text-xs ${activeView === 'history' ? 'bg-cyan-500 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
                 onClick={() => setActiveView('history')}
               >
-                DAERAH TERDAHULU
+                RIWAYAT
               </Button>
             </div>
           </CardContent>

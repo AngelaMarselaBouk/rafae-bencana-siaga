@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { BookOpen, Shield, Briefcase, Users, Play, ExternalLink } from 'lucide-react';
+import { BookOpen, Shield, Briefcase, Users, Play, ExternalLink, Video } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
@@ -9,8 +9,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 export const Education: React.FC = () => {
   const { t } = useLanguage();
   const [selectedTopic, setSelectedTopic] = useState('preparation');
+  const [showVideo, setShowVideo] = useState(false);
 
   const videoUrl = 'https://youtu.be/0SE7Xh5NFAI?si=ItVptXIDKRU3m16m';
+  const embedUrl = 'https://www.youtube.com/embed/0SE7Xh5NFAI';
 
   const educationContent = {
     preparation: {
@@ -51,49 +53,75 @@ export const Education: React.FC = () => {
     }
   };
 
-  const handleVideoClick = () => {
+  const handleExternalVideoClick = () => {
     window.open(videoUrl, '_blank');
   };
 
   return (
-    <div className="p-4 space-y-6">
-      <div>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-teal-50 p-4 space-y-6">
+      <div className="bg-white/80 backdrop-blur-sm rounded-lg p-4 shadow-lg">
         <h1 className="text-2xl font-bold text-gray-800 mb-2">Edukasi Siaga Banjir</h1>
         <p className="text-gray-600">Pelajari cara bersiap menghadapi bencana banjir</p>
       </div>
 
       {/* Video Section */}
-      <Card className="shadow-lg">
+      <Card className="shadow-lg bg-white/90 backdrop-blur-sm">
         <CardContent className="p-0">
-          <div 
-            className="relative h-48 bg-gradient-to-br from-blue-400 to-blue-600 rounded-t-lg flex items-center justify-center cursor-pointer hover:from-blue-500 hover:to-blue-700 transition-all"
-            onClick={handleVideoClick}
-          >
-            <div className="text-center text-white">
-              <Play className="w-16 h-16 mx-auto mb-2 opacity-80 hover:opacity-100 transition-opacity" />
-              <p className="font-medium">Video Panduan Evakuasi Banjir</p>
-              <p className="text-sm opacity-80">Durasi: 5 menit</p>
-              <div className="flex items-center justify-center gap-1 mt-2">
-                <ExternalLink size={14} />
-                <span className="text-xs">Tonton di YouTube</span>
+          {!showVideo ? (
+            <div 
+              className="relative h-48 bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 rounded-t-lg flex items-center justify-center cursor-pointer hover:from-blue-500 hover:to-blue-700 transition-all group"
+              onClick={() => setShowVideo(true)}
+            >
+              <div className="absolute inset-0 bg-black/20 rounded-t-lg"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent rounded-t-lg"></div>
+              <div className="text-center text-white relative z-10">
+                <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-white/30 transition-all">
+                  <Play className="w-10 h-10 opacity-90 hover:opacity-100 transition-opacity ml-1" />
+                </div>
+                <p className="font-bold text-lg mb-1">Video Panduan Evakuasi Banjir</p>
+                <p className="text-sm opacity-90 mb-3">Durasi: 5 menit</p>
+                <div className="flex items-center justify-center gap-2 text-sm bg-white/10 px-4 py-2 rounded-full">
+                  <Video size={16} />
+                  <span>Tonton Video Panduan</span>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="p-4">
-            <Button 
-              className="w-full bg-blue-600 hover:bg-blue-700"
-              onClick={handleVideoClick}
-            >
-              <Play size={16} className="mr-2" />
-              Tonton Video
-            </Button>
+          ) : (
+            <div className="relative h-64 bg-black rounded-t-lg">
+              <iframe
+                src={embedUrl}
+                title="Video Panduan Evakuasi Banjir"
+                className="w-full h-full rounded-t-lg"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+          )}
+          <div className="p-4 bg-gradient-to-r from-blue-50 to-cyan-50">
+            <div className="flex gap-3">
+              <Button 
+                className="flex-1 bg-blue-600 hover:bg-blue-700"
+                onClick={() => setShowVideo(!showVideo)}
+              >
+                <Video size={16} className="mr-2" />
+                {showVideo ? 'Sembunyikan Video' : 'Tonton di Aplikasi'}
+              </Button>
+              <Button 
+                variant="outline" 
+                className="flex-1 border-blue-200 text-blue-700 hover:bg-blue-50"
+                onClick={handleExternalVideoClick}
+              >
+                <ExternalLink size={16} className="mr-2" />
+                Buka di YouTube
+              </Button>
+            </div>
           </div>
         </CardContent>
       </Card>
 
       {/* Education Tabs */}
       <Tabs value={selectedTopic} onValueChange={setSelectedTopic}>
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-3 bg-white/80 backdrop-blur-sm">
           <TabsTrigger value="preparation">Persiapan</TabsTrigger>
           <TabsTrigger value="evacuation">Evakuasi</TabsTrigger>
           <TabsTrigger value="kit">Kit Darurat</TabsTrigger>
@@ -101,21 +129,21 @@ export const Education: React.FC = () => {
 
         {Object.entries(educationContent).map(([key, content]) => (
           <TabsContent key={key} value={key}>
-            <Card className="shadow-md">
-              <CardHeader>
+            <Card className="shadow-md bg-white/90 backdrop-blur-sm">
+              <CardHeader className="bg-gradient-to-r from-blue-50 to-cyan-50">
                 <CardTitle className="flex items-center gap-2">
                   <content.icon className="text-blue-600" size={20} />
                   {content.title}
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <ul className="space-y-3">
+              <CardContent className="p-6">
+                <ul className="space-y-4">
                   {content.content.map((item, index) => (
                     <li key={index} className="flex items-start gap-3">
-                      <span className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-sm font-medium">
+                      <span className="flex-shrink-0 w-7 h-7 bg-gradient-to-br from-blue-100 to-blue-200 text-blue-600 rounded-full flex items-center justify-center text-sm font-bold shadow-sm">
                         {index + 1}
                       </span>
-                      <span className="text-sm text-gray-700">{item}</span>
+                      <span className="text-sm text-gray-700 leading-relaxed">{item}</span>
                     </li>
                   ))}
                 </ul>
@@ -126,13 +154,13 @@ export const Education: React.FC = () => {
       </Tabs>
 
       {/* Quick Tips */}
-      <Card className="shadow-md">
-        <CardHeader>
+      <Card className="shadow-md bg-white/90 backdrop-blur-sm">
+        <CardHeader className="bg-gradient-to-r from-yellow-50 to-orange-50">
           <CardTitle className="text-lg">Tips Penting</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <div className="space-y-4">
-            <div className="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+            <div className="p-4 bg-gradient-to-r from-yellow-50 to-yellow-100 rounded-lg border border-yellow-200 shadow-sm">
               <div className="flex items-start gap-3">
                 <span className="text-2xl">⚠️</span>
                 <div>
@@ -142,7 +170,7 @@ export const Education: React.FC = () => {
               </div>
             </div>
             
-            <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+            <div className="p-4 bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg border border-blue-200 shadow-sm">
               <div className="flex items-start gap-3">
                 <span className="text-2xl">📱</span>
                 <div>
@@ -152,7 +180,7 @@ export const Education: React.FC = () => {
               </div>
             </div>
             
-            <div className="p-4 bg-green-50 rounded-lg border border-green-200">
+            <div className="p-4 bg-gradient-to-r from-green-50 to-green-100 rounded-lg border border-green-200 shadow-sm">
               <div className="flex items-start gap-3">
                 <span className="text-2xl">🏠</span>
                 <div>
@@ -166,17 +194,17 @@ export const Education: React.FC = () => {
       </Card>
 
       {/* Emergency Contacts Card */}
-      <Card className="shadow-md">
-        <CardHeader>
+      <Card className="shadow-md bg-white/90 backdrop-blur-sm">
+        <CardHeader className="bg-gradient-to-r from-red-50 to-red-100">
           <CardTitle className="text-lg">Nomor Penting</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <div className="grid grid-cols-2 gap-4 text-center">
-            <div className="p-4 bg-red-50 rounded-lg">
+            <div className="p-4 bg-gradient-to-br from-red-50 to-red-100 rounded-lg shadow-sm">
               <p className="font-bold text-red-600 text-xl">112</p>
               <p className="text-sm text-red-700">Darurat Nasional</p>
             </div>
-            <div className="p-4 bg-blue-50 rounded-lg">
+            <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg shadow-sm">
               <p className="font-bold text-blue-600 text-xl">117</p>
               <p className="text-sm text-blue-700">SAR Nasional</p>
             </div>
