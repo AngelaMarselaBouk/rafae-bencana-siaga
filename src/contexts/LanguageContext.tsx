@@ -2,8 +2,8 @@
 import React, { createContext, useContext, useState } from 'react';
 
 interface LanguageContextType {
-  language: 'id' | 'tet';
-  setLanguage: (lang: 'id' | 'tet') => void;
+  language: 'id' | 'tet' | 'daw';
+  setLanguage: (lang: 'id' | 'tet' | 'daw') => void;
   t: (key: string) => string;
 }
 
@@ -93,13 +93,56 @@ const translations = {
     floodPreparedness: 'Preparasaun Ba Bee-Manas',
     evacuationGuide: 'Gia Evakuasaun',
     emergencyKit: 'Kit Emerjénsia'
+  },
+  daw: {
+    // Navigation (Dawan translations)
+    home: 'Ume',
+    map: 'Peta',
+    emergency: 'Bahaya',
+    report: 'Laporan',
+    education: 'Sekolah',
+    
+    // Dashboard
+    floodDetection: 'Cari Banjir Rafae',
+    weatherStatus: 'Keadaan Cuaca',
+    waterLevel: 'Tinggi Air',
+    emergencyButton: 'TOMBOL BAHAYA',
+    lastReports: 'Laporan Baru',
+    
+    // Weather conditions
+    sunny: 'Panas',
+    cloudy: 'Berawan',
+    rainy: 'Hujan',
+    stormy: 'Angin Besar',
+    
+    // Water levels
+    normal: 'Biasa',
+    warning: 'Hati-hati',
+    alert: 'Siaga',
+    danger: 'Bahaya',
+    
+    // Emergency
+    emergencyAlert: 'PERINGATAN BAHAYA',
+    sendLocation: 'Kirim Tempat',
+    callHelp: 'Panggil Tolong',
+    
+    // Report
+    submitReport: 'Kirim Laporan',
+    location: 'Tempat',
+    description: 'Cerita',
+    photo: 'Gambar',
+    
+    // Education
+    floodPreparedness: 'Siap Hadapi Banjir',
+    evacuationGuide: 'Cara Mengungsi',
+    emergencyKit: 'Tas Darurat'
   }
 };
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<'id' | 'tet'>('id');
+  const [language, setLanguage] = useState<'id' | 'tet' | 'daw'>('id');
 
   const t = (key: string): string => {
     return translations[language][key as keyof typeof translations.id] || key;
