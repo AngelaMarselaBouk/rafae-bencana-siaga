@@ -14,6 +14,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
   const { t, language, setLanguage } = useLanguage();
   const { user, logout } = useAuth();
   const [showRegistration, setShowRegistration] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
 
   const menuItems = [
     { 
@@ -38,7 +39,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
       icon: Settings, 
       label: 'Operasi', 
       color: 'bg-purple-100 text-purple-600',
-      action: () => onNavigate?.('admin')
+      action: () => setShowSettings(true)
     },
     { 
       icon: Video, 
@@ -75,12 +76,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
       label: 'Prakiraan Cuaca', 
       color: 'bg-cyan-100 text-cyan-600',
       action: () => onNavigate?.('weather-forecast')
-    },
-    { 
-      icon: UserPlus, 
-      label: 'Daftar Pengguna Baru', 
-      color: 'bg-indigo-100 text-indigo-600',
-      action: () => setShowRegistration(true)
     },
     { 
       icon: FileText, 
@@ -129,23 +124,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
           </div>
         </div>
 
-        {/* User Welcome */}
-        <Card className="bg-white/20 backdrop-blur-sm border-white/30 text-white shadow-xl mb-4">
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                <span className="text-white font-semibold text-sm">
-                  {user?.name.charAt(0).toUpperCase()}
-                </span>
-              </div>
-              <div>
-                <p className="text-white font-medium">Selamat datang, {user?.name}</p>
-                <p className="text-white/80 text-xs">{user?.email}</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
         {/* Main Header Card */}
         <Card className="bg-white/20 backdrop-blur-sm border-white/30 text-white shadow-xl mb-4">
           <CardContent className="p-4 text-center">
@@ -156,11 +134,66 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
             </div>
             <h2 className="text-lg font-bold mb-1">Sistem Peringatan Dini Banjir</h2>
             <p className="text-white/90 text-xs">Atambua, Kabupaten Belu, Nusa Tenggara Timur</p>
-            <div className="mt-2 text-xs bg-green-500/20 rounded-lg p-2">
-              <p className="text-green-100">✓ Mode Offline Tersedia</p>
+          </CardContent>
+        </Card>
+
+        {/* Registration Highlight Card */}
+        <Card className="bg-gradient-to-r from-indigo-500/20 to-purple-500/20 backdrop-blur-sm border-white/30 text-white shadow-xl mb-4">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-indigo-500/30 rounded-full flex items-center justify-center">
+                  <UserPlus className="text-white" size={24} />
+                </div>
+                <div>
+                  <h3 className="font-bold text-white">Daftar Pengguna Baru</h3>
+                  <p className="text-white/80 text-xs">Klik untuk informasi pendaftaran</p>
+                </div>
+              </div>
+              <Button 
+                onClick={() => setShowRegistration(true)}
+                className="bg-white/20 hover:bg-white/30 text-white border-white/20"
+                size="sm"
+              >
+                Daftar
+              </Button>
             </div>
           </CardContent>
         </Card>
+
+        {/* Settings Modal */}
+        {showSettings && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+            <Card className="w-full max-w-md bg-white">
+              <CardHeader>
+                <CardTitle className="text-center text-gray-800">Pengaturan Sistem</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="bg-green-50 p-3 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                    <p className="text-sm text-green-700 font-medium">Mode Offline Tersedia</p>
+                  </div>
+                  <p className="text-xs text-green-600 mt-1">
+                    Aplikasi dapat bekerja tanpa koneksi internet
+                  </p>
+                </div>
+                <div className="bg-blue-50 p-3 rounded-lg">
+                  <p className="text-xs text-blue-700">
+                    <strong>Versi Aplikasi:</strong> 1.0.0<br />
+                    <strong>Terakhir Update:</strong> 2 Juli 2025
+                  </p>
+                </div>
+                <Button 
+                  onClick={() => setShowSettings(false)}
+                  className="w-full"
+                >
+                  Tutup
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        )}
 
         {/* Registration Modal */}
         {showRegistration && (
