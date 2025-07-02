@@ -106,7 +106,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
     },
     { 
       icon: Cloud, 
-      label: 'Prakiraan Cuaca', 
+      label: 'Perkiraan Cuaca', 
       color: 'bg-cyan-100 text-cyan-600',
       action: () => onNavigate?.('weather-forecast')
     },
@@ -182,42 +182,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
             </Button>
           </div>
         </div>
-
-        {/* Weather Information Widget */}
-        <Card className="bg-white/20 backdrop-blur-sm border-white/30 text-white shadow-xl mb-4">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <Cloud size={24} className="text-white" />
-                <div>
-                  <h3 className="font-bold text-lg">Cuaca Hari Ini</h3>
-                  <p className="text-sm text-white/80">Atambua, Belu</p>
-                </div>
-              </div>
-              <div className="text-right">
-                <p className="text-2xl font-bold">28°C</p>
-                <p className="text-sm">Berawan</p>
-              </div>
-            </div>
-            <div className="grid grid-cols-3 gap-4 mt-4 text-center">
-              <div className="bg-white/10 rounded-lg p-2">
-                <Droplets size={16} className="mx-auto mb-1" />
-                <p className="text-xs">Curah Hujan</p>
-                <p className="font-bold text-sm">2mm</p>
-              </div>
-              <div className="bg-white/10 rounded-lg p-2">
-                <Wind size={16} className="mx-auto mb-1" />
-                <p className="text-xs">Angin</p>
-                <p className="font-bold text-sm">5 km/h</p>
-              </div>
-              <div className="bg-white/10 rounded-lg p-2">
-                <AlertTriangle size={16} className="mx-auto mb-1" />
-                <p className="text-xs">Potensi Banjir</p>
-                <p className="font-bold text-sm text-green-300">Rendah</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
 
         {/* Flood Alert Button */}
         <Card className="bg-gradient-to-r from-red-500/20 to-orange-500/20 backdrop-blur-sm border-red-300/30 text-white shadow-xl mb-4">

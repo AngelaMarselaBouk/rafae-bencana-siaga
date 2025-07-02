@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { ArrowLeft, Info, Phone, MapPin, Clock, AlertTriangle, Navigation, ExternalLink } from 'lucide-react';
 import { Button } from './ui/button';
@@ -36,7 +37,7 @@ export const Map: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
                 title="Peta Atambua"
               ></iframe>
             </div>
-            <div className="mt-4 flex justify-center">
+            <div className="mt-4 flex justify-center gap-2">
               <Button 
                 variant="outline" 
                 size="sm"
@@ -45,6 +46,15 @@ export const Map: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
               >
                 <ExternalLink size={16} className="mr-2" />
                 Buka di Google Maps
+              </Button>
+              <Button 
+                variant="outline" 
+                size="sm"
+                className="text-green-600 border-green-600 hover:bg-green-50"
+                onClick={() => window.open('https://images.app.goo.gl/jEZpdgbsHfJWRT6y7', '_blank')}
+              >
+                <MapPin size={16} className="mr-2" />
+                Peta Pos Pengamatan
               </Button>
             </div>
           </CardContent>
