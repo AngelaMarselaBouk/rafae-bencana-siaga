@@ -11,7 +11,7 @@ export const WaterLevelStatus: React.FC<{ onBack?: () => void }> = ({ onBack }) 
 
   const stationData = [
     {
-      name: 'Stasiun Atambua Barat',
+      name: 'Pos Pemantauan Atambua Barat',
       river: 'Sungai Berdao',
       level: '145',
       status: 'Normal',
@@ -19,7 +19,7 @@ export const WaterLevelStatus: React.FC<{ onBack?: () => void }> = ({ onBack }) 
       temp: '28°C'
     },
     {
-      name: 'Stasiun Atambua Selatan',
+      name: 'Pos Pemantauan Atambua Selatan',
       river: 'Sungai Talau',
       level: '132',
       status: 'Normal',
@@ -27,7 +27,7 @@ export const WaterLevelStatus: React.FC<{ onBack?: () => void }> = ({ onBack }) 
       temp: '27°C'
     },
     {
-      name: 'Stasiun Raihat',
+      name: 'Pos Pengawasan Raihat',
       river: 'Sungai Noel Mina',
       level: '118',
       status: 'Normal',
@@ -35,7 +35,7 @@ export const WaterLevelStatus: React.FC<{ onBack?: () => void }> = ({ onBack }) 
       temp: '26°C'
     },
     {
-      name: 'Stasiun Raimanuk',
+      name: 'Pos Observasi Raimanuk',
       river: 'Sungai Motumoru',
       level: '156',
       status: 'Normal',
@@ -43,7 +43,7 @@ export const WaterLevelStatus: React.FC<{ onBack?: () => void }> = ({ onBack }) 
       temp: '29°C'
     },
     {
-      name: 'Stasiun Lamaknen',
+      name: 'Pos Pemantauan Lamaknen',
       river: 'Sungai Malibaka',
       level: '142',
       status: 'Normal',
@@ -51,7 +51,7 @@ export const WaterLevelStatus: React.FC<{ onBack?: () => void }> = ({ onBack }) 
       temp: '27°C'
     },
     {
-      name: 'Stasiun Tasifeto Barat',
+      name: 'Pos Pemantauan Tasifeto Barat',
       river: 'Sungai Baukama',
       level: '138',
       status: 'Normal',
@@ -59,7 +59,7 @@ export const WaterLevelStatus: React.FC<{ onBack?: () => void }> = ({ onBack }) 
       temp: '26°C'
     },
     {
-      name: 'Stasiun Tasifeto Timur',
+      name: 'Pos Pengawasan Tasifeto Timur',
       river: 'Sungai Baukoek',
       level: '124',
       status: 'Normal',
@@ -140,7 +140,7 @@ export const WaterLevelStatus: React.FC<{ onBack?: () => void }> = ({ onBack }) 
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div className="bg-green-500/20 rounded-lg p-3">
                   <p className="font-semibold text-green-200 text-lg">7</p>
-                  <p className="text-green-100">Stasiun Normal</p>
+                  <p className="text-green-100">Pos Normal</p>
                 </div>
                 <div className="bg-blue-500/20 rounded-lg p-3">
                   <p className="font-semibold text-blue-200 text-lg">26°C</p>

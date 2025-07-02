@@ -13,36 +13,73 @@ export const WeatherForecast: React.FC<{ onBack?: () => void }> = ({ onBack }) =
     {
       location: 'Atambua Pusat',
       periods: [
-        { time: 'Pagi', icon: Sun, condition: 'Cerah' },
-        { time: 'Siang', icon: CloudRain, condition: 'Hujan Ringan' },
-        { time: 'Malam', icon: Cloud, condition: 'Berawan' }
+        { time: 'Pagi', icon: Sun, condition: 'Cerah', temp: '24°C' },
+        { time: 'Siang', icon: CloudRain, condition: 'Hujan Ringan', temp: '28°C' },
+        { time: 'Malam', icon: Cloud, condition: 'Berawan', temp: '22°C' }
       ]
     },
     {
       location: 'Kabupaten Belu Utara',
       periods: [
-        { time: 'Pagi', icon: Cloud, condition: 'Berawan' },
-        { time: 'Siang', icon: CloudRain, condition: 'Hujan Sedang' },
-        { time: 'Malam', icon: CloudRain, condition: 'Hujan Ringan' }
+        { time: 'Pagi', icon: Cloud, condition: 'Berawan', temp: '23°C' },
+        { time: 'Siang', icon: CloudRain, condition: 'Hujan Sedang', temp: '26°C' },
+        { time: 'Malam', icon: CloudRain, condition: 'Hujan Ringan', temp: '21°C' }
       ]
     },
     {
       location: 'Kabupaten Belu Selatan',
       periods: [
-        { time: 'Pagi', icon: Sun, condition: 'Cerah' },
-        { time: 'Siang', icon: Sun, condition: 'Cerah' },
-        { time: 'Malam', icon: Cloud, condition: 'Berawan' }
+        { time: 'Pagi', icon: Sun, condition: 'Cerah', temp: '25°C' },
+        { time: 'Siang', icon: Sun, condition: 'Cerah', temp: '30°C' },
+        { time: 'Malam', icon: Cloud, condition: 'Berawan', temp: '23°C' }
       ]
     },
     {
       location: 'Motaain',
       periods: [
-        { time: 'Pagi', icon: Cloud, condition: 'Berawan' },
-        { time: 'Siang', icon: CloudRain, condition: 'Hujan Ringan' },
-        { time: 'Malam', icon: CloudRain, condition: 'Hujan Ringan' }
+        { time: 'Pagi', icon: Cloud, condition: 'Berawan', temp: '24°C' },
+        { time: 'Siang', icon: CloudRain, condition: 'Hujan Ringan', temp: '27°C' },
+        { time: 'Malam', icon: CloudRain, condition: 'Hujan Ringan', temp: '22°C' }
       ]
     }
   ];
+
+  const tomorrowForecast = [
+    {
+      location: 'Atambua Pusat',
+      periods: [
+        { time: 'Pagi', icon: CloudRain, condition: 'Hujan Ringan', temp: '23°C' },
+        { time: 'Siang', icon: Cloud, condition: 'Berawan', temp: '29°C' },
+        { time: 'Malam', icon: Sun, condition: 'Cerah', temp: '24°C' }
+      ]
+    },
+    {
+      location: 'Kabupaten Belu Utara',
+      periods: [
+        { time: 'Pagi', icon: CloudRain, condition: 'Hujan Sedang', temp: '22°C' },
+        { time: 'Siang', icon: CloudRain, condition: 'Hujan Ringan', temp: '25°C' },
+        { time: 'Malam', icon: Cloud, condition: 'Berawan', temp: '20°C' }
+      ]
+    },
+    {
+      location: 'Kabupaten Belu Selatan',
+      periods: [
+        { time: 'Pagi', icon: Cloud, condition: 'Berawan', temp: '24°C' },
+        { time: 'Siang', icon: Sun, condition: 'Cerah', temp: '31°C' },
+        { time: 'Malam', icon: Sun, condition: 'Cerah', temp: '25°C' }
+      ]
+    },
+    {
+      location: 'Motaain',
+      periods: [
+        { time: 'Pagi', icon: CloudRain, condition: 'Hujan Ringan', temp: '23°C' },
+        { time: 'Siang', icon: Cloud, condition: 'Berawan', temp: '28°C' },
+        { time: 'Malam', icon: Cloud, condition: 'Berawan', temp: '21°C' }
+      ]
+    }
+  ];
+
+  const currentForecast = activeTab === 'HARI INI' ? todayForecast : tomorrowForecast;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-cyan-400 via-blue-400 to-blue-500">
@@ -75,7 +112,7 @@ export const WeatherForecast: React.FC<{ onBack?: () => void }> = ({ onBack }) =
         {/* Forecast Content */}
         <div className="bg-white rounded-lg shadow-lg p-6">
           <div className="grid gap-6 md:grid-cols-2">
-            {todayForecast.map((area, index) => (
+            {currentForecast.map((area, index) => (
               <div key={index}>
                 <h3 className="font-semibold text-cyan-600 mb-3">{area.location}</h3>
                 <div className="grid grid-cols-3 gap-3 mb-6">
@@ -96,7 +133,8 @@ export const WeatherForecast: React.FC<{ onBack?: () => void }> = ({ onBack }) =
                             />
                           </div>
                         </div>
-                        <p className="text-xs text-gray-600">{period.condition}</p>
+                        <p className="text-xs text-gray-600 mb-1">{period.condition}</p>
+                        <p className="text-xs font-medium text-blue-600">{period.temp}</p>
                       </div>
                     );
                   })}
@@ -107,7 +145,7 @@ export const WeatherForecast: React.FC<{ onBack?: () => void }> = ({ onBack }) =
           
           <div className="mt-6 pt-4 border-t border-gray-200">
             <p className="text-xs text-gray-500 text-center">
-              Sumber: Badan Meteorologi, Klimatologi, dan Geofisika - Stasiun Meteorologi Atambua
+              Sumber: Badan Meteorologi, Klimatologi, dan Geofisika - Pos Meteorologi Atambua
             </p>
           </div>
         </div>

@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { AlertTriangle, Cloud, Droplets, Languages, Bell, MapPin, FileText, Shield, Settings, Users, BarChart3, Thermometer, Wind, Camera, Video, Eye, Zap, Waves, LogOut } from 'lucide-react';
+import { AlertTriangle, Cloud, Droplets, Languages, Bell, MapPin, FileText, Shield, Settings, Users, BarChart3, Thermometer, Wind, Camera, Video, Eye, Waves, LogOut, UserPlus } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useAuth } from './AuthProvider';
 import { Button } from './ui/button';
@@ -13,6 +13,7 @@ interface DashboardProps {
 export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
   const { t, language, setLanguage } = useLanguage();
   const { user, logout } = useAuth();
+  const [showRegistration, setShowRegistration] = useState(false);
 
   const menuItems = [
     { 
@@ -70,22 +71,22 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
       action: () => onNavigate?.('emergency')
     },
     { 
-      icon: Eye, 
-      label: 'Sistem Otomatis', 
+      icon: Cloud, 
+      label: 'Prakiraan Cuaca', 
       color: 'bg-cyan-100 text-cyan-600',
-      action: () => onNavigate?.('notifications')
+      action: () => onNavigate?.('weather-forecast')
     },
     { 
-      icon: Zap, 
-      label: 'Peringatan Aplikasi', 
-      color: 'bg-gray-100 text-gray-600',
-      action: () => onNavigate?.('notifications')
+      icon: UserPlus, 
+      label: 'Daftar Pengguna Baru', 
+      color: 'bg-indigo-100 text-indigo-600',
+      action: () => setShowRegistration(true)
     },
     { 
       icon: FileText, 
-      label: 'Edukasi Bencana', 
-      color: 'bg-indigo-100 text-indigo-600',
-      action: () => onNavigate?.('education')
+      label: 'Laporan', 
+      color: 'bg-gray-100 text-gray-600',
+      action: () => onNavigate?.('report')
     }
   ];
 
@@ -155,8 +156,40 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
             </div>
             <h2 className="text-lg font-bold mb-1">Sistem Peringatan Dini Banjir</h2>
             <p className="text-white/90 text-xs">Atambua, Kabupaten Belu, Nusa Tenggara Timur</p>
+            <div className="mt-2 text-xs bg-green-500/20 rounded-lg p-2">
+              <p className="text-green-100">✓ Mode Offline Tersedia</p>
+            </div>
           </CardContent>
         </Card>
+
+        {/* Registration Modal */}
+        {showRegistration && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+            <Card className="w-full max-w-md bg-white">
+              <CardHeader>
+                <CardTitle className="text-center text-gray-800">Pendaftaran Pengguna Baru</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-sm text-gray-600 text-center">
+                  Untuk mendaftarkan pengguna baru, silakan hubungi administrator sistem atau gunakan formulir pendaftaran yang tersedia di kantor desa setempat.
+                </p>
+                <div className="bg-blue-50 p-3 rounded-lg">
+                  <p className="text-xs text-blue-700">
+                    <strong>Kontak:</strong><br />
+                    - Kantor Desa: (0380) 21234<br />
+                    - Administrator: admin@belu.go.id
+                  </p>
+                </div>
+                <Button 
+                  onClick={() => setShowRegistration(false)}
+                  className="w-full"
+                >
+                  Tutup
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        )}
 
         {/* Menu Grid - Made scrollable */}
         <div className="bg-white rounded-t-3xl -mx-4 px-4 py-4 min-h-80 max-h-96 overflow-y-auto">

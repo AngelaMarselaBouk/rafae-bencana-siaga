@@ -7,7 +7,7 @@ import { Button } from './ui/button';
 export const StatusAlert: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
   const statusData = [
     {
-      title: 'Stasiun Monitoring Atambua Barat',
+      title: 'Pos Pemantauan Atambua Barat',
       location: 'Sungai Berdao',
       level: '145',
       status: 'Siaga 2',
@@ -16,7 +16,7 @@ export const StatusAlert: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
       temp: '28°C'
     },
     {
-      title: 'Stasiun Pemantauan Atambua Selatan',
+      title: 'Pos Pemantauan Atambua Selatan',
       location: 'Sungai Talau',
       level: '132',
       status: 'Siaga 3',
@@ -25,7 +25,7 @@ export const StatusAlert: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
       temp: '27°C'
     },
     {
-      title: 'Stasiun Pengawasan Raihat',
+      title: 'Pos Pengawasan Raihat',
       location: 'Sungai Noel Mina',
       level: '118',
       status: 'Siaga 3',
@@ -34,7 +34,7 @@ export const StatusAlert: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
       temp: '26°C'
     },
     {
-      title: 'Stasiun Observasi Raimanuk',
+      title: 'Pos Observasi Raimanuk',
       location: 'Sungai Motumoru',
       level: '98',
       status: 'Normal',
@@ -43,7 +43,7 @@ export const StatusAlert: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
       temp: '25°C'
     },
     {
-      title: 'Stasiun Monitoring Lamaknen',
+      title: 'Pos Pemantauan Lamaknen',
       location: 'Sungai Malibaka',
       level: '156',
       status: 'Siaga 2',
@@ -52,7 +52,7 @@ export const StatusAlert: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
       temp: '29°C'
     },
     {
-      title: 'Stasiun Pemantauan Tasifeto Barat',
+      title: 'Pos Pemantauan Tasifeto Barat',
       location: 'Sungai Baukama',
       level: '142',
       status: 'Normal',
@@ -61,7 +61,7 @@ export const StatusAlert: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
       temp: '27°C'
     },
     {
-      title: 'Stasiun Pengawasan Tasifeto Timur',
+      title: 'Pos Pengawasan Tasifeto Timur',
       location: 'Sungai Baukoek',
       level: '124',
       status: 'Siaga 3',
@@ -131,7 +131,7 @@ export const StatusAlert: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
                 </div>
               </div>
               <div className="mt-4 text-xs opacity-80">
-                <p>Total: 7 Stasiun Pemantauan Aktif</p>
+                <p>Total: 7 Pos Pemantauan Aktif</p>
               </div>
             </div>
           </CardContent>
