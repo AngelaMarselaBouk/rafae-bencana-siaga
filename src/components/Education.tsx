@@ -1,18 +1,13 @@
 
 import React, { useState } from 'react';
-import { BookOpen, Shield, Briefcase, Users, Play, ExternalLink, Video } from 'lucide-react';
+import { BookOpen, Shield, Briefcase, Users } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
-import { Button } from './ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 
 export const Education: React.FC = () => {
   const { t } = useLanguage();
   const [selectedTopic, setSelectedTopic] = useState('preparation');
-  const [showVideo, setShowVideo] = useState(false);
-
-  const videoUrl = 'https://youtu.be/0SE7Xh5NFAI?si=ItVptXIDKRU3m16m';
-  const embedUrl = 'https://www.youtube.com/embed/0SE7Xh5NFAI';
 
   const educationContent = {
     preparation: {
@@ -53,71 +48,12 @@ export const Education: React.FC = () => {
     }
   };
 
-  const handleExternalVideoClick = () => {
-    window.open(videoUrl, '_blank');
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-teal-50 p-4 space-y-6">
       <div className="bg-white/80 backdrop-blur-sm rounded-lg p-4 shadow-lg">
         <h1 className="text-2xl font-bold text-gray-800 mb-2">Edukasi Siaga Banjir</h1>
         <p className="text-gray-600">Pelajari cara bersiap menghadapi bencana banjir</p>
       </div>
-
-      {/* Video Section */}
-      <Card className="shadow-lg bg-white/90 backdrop-blur-sm">
-        <CardContent className="p-0">
-          {!showVideo ? (
-            <div 
-              className="relative h-48 bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 rounded-t-lg flex items-center justify-center cursor-pointer hover:from-blue-500 hover:to-blue-700 transition-all group"
-              onClick={() => setShowVideo(true)}
-            >
-              <div className="absolute inset-0 bg-black/20 rounded-t-lg"></div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent rounded-t-lg"></div>
-              <div className="text-center text-white relative z-10">
-                <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-white/30 transition-all">
-                  <Play className="w-10 h-10 opacity-90 hover:opacity-100 transition-opacity ml-1" />
-                </div>
-                <p className="font-bold text-lg mb-1">Video Panduan Evakuasi Banjir</p>
-                <p className="text-sm opacity-90 mb-3">Durasi: 5 menit</p>
-                <div className="flex items-center justify-center gap-2 text-sm bg-white/10 px-4 py-2 rounded-full">
-                  <Video size={16} />
-                  <span>Tonton Video Panduan</span>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="relative h-64 bg-black rounded-t-lg">
-              <iframe
-                src={embedUrl}
-                title="Video Panduan Evakuasi Banjir"
-                className="w-full h-full rounded-t-lg"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
-            </div>
-          )}
-          <div className="p-4 bg-gradient-to-r from-blue-50 to-cyan-50">
-            <div className="flex gap-3">
-              <Button 
-                className="flex-1 bg-blue-600 hover:bg-blue-700"
-                onClick={() => setShowVideo(!showVideo)}
-              >
-                <Video size={16} className="mr-2" />
-                {showVideo ? 'Sembunyikan Video' : 'Tonton di Aplikasi'}
-              </Button>
-              <Button 
-                variant="outline" 
-                className="flex-1 border-blue-200 text-blue-700 hover:bg-blue-50"
-                onClick={handleExternalVideoClick}
-              >
-                <ExternalLink size={16} className="mr-2" />
-                Buka di YouTube
-              </Button>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
 
       {/* Education Tabs */}
       <Tabs value={selectedTopic} onValueChange={setSelectedTopic}>
