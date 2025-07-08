@@ -11,7 +11,7 @@ interface NavigationProps {
 export const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange }) => {
   const { t } = useLanguage();
 
-  // Only show active/implemented navigation items
+  // Only show active/implemented navigation items (removed education since content is not available)
   const navItems = [
     { id: 'dashboard', icon: Home, label: t('home') },
     { id: 'map', icon: MapPin, label: t('map') },

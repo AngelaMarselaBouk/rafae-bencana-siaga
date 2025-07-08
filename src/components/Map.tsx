@@ -1,10 +1,23 @@
 
 import React from 'react';
-import { ArrowLeft, Info, Phone, MapPin, Clock, AlertTriangle, Navigation, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Info, Phone, MapPin, Clock, AlertTriangle, Navigation, ExternalLink, Shield, Users, Hospital, Home } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 
 export const Map: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
+  const evacuationPoints = [
+    { name: 'Stadion Atambua', type: 'stadium', coordinates: '-9.1058, 125.0941' },
+    { name: 'Gedung Serba Guna', type: 'building', coordinates: '-9.1048, 125.0951' },
+    { name: 'Sekolah Tinggi Negeri', type: 'school', coordinates: '-9.1068, 125.0931' },
+    { name: 'Puskesmas Atambua', type: 'hospital', coordinates: '-9.1038, 125.0961' }
+  ];
+
+  const rescueRoutes = [
+    { name: 'Jalur Utama Timur', status: 'aman', color: 'green' },
+    { name: 'Jalur Alternatif Barat', status: 'waspada', color: 'yellow' },
+    { name: 'Jalur Darurat Selatan', status: 'aman', color: 'green' }
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-cyan-400 via-blue-400 to-blue-500">
       <div className="p-6 text-white max-w-4xl mx-auto">
@@ -13,7 +26,7 @@ export const Map: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
           <Button variant="ghost" size="sm" className="text-white p-2" onClick={onBack}>
             <ArrowLeft size={20} />
           </Button>
-          <h1 className="text-xl font-bold">Peta Lokasi Atambua</h1>
+          <h1 className="text-xl font-bold">Peta & Rute Evakuasi Atambua</h1>
         </div>
 
         {/* Google Maps Container */}
@@ -57,6 +70,96 @@ export const Map: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
                 Peta Pos Pengamatan
               </Button>
             </div>
+          </CardContent>
+        </Card>
+
+        {/* Evacuation Points */}
+        <Card className="bg-white/95 backdrop-blur-sm shadow-lg mb-4">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-green-600">
+              <Shield size={20} />
+              Titik Evakuasi Darurat
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {evacuationPoints.map((point, index) => {
+              const getIcon = (type: string) => {
+                switch (type) {
+                  case 'stadium': return <Home className="text-blue-500" size={16} />;
+                  case 'building': return <Shield className="text-green-500" size={16} />;
+                  case 'school': return <Users className="text-purple-500" size={16} />;
+                  case 'hospital': return <Hospital className="text-red-500" size={16} />;
+                  default: return <MapPin className="text-gray-500" size={16} />;
+                }
+              };
+              
+              return (
+                <div key={index} className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                  <div className="flex items-center gap-3">
+                    {getIcon(point.type)}
+                    <div>
+                      <p className="font-medium text-gray-800">{point.name}</p>
+                      <p className="text-xs text-gray-600">Koordinat: {point.coordinates}</p>
+                    </div>
+                  </div>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    className="text-green-600 border-green-600 hover:bg-green-50"
+                  >
+                    <Navigation size={14} className="mr-1" />
+                    Arah
+                  </Button>
+                </div>
+              );
+            })}
+          </CardContent>
+        </Card>
+
+        {/* Rescue Routes */}
+        <Card className="bg-white/95 backdrop-blur-sm shadow-lg mb-4">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-orange-600">
+              <Navigation size={20} />
+              Rute Penyelamatan
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {rescueRoutes.map((route, index) => {
+              const getStatusColor = (status: string) => {
+                switch (status) {
+                  case 'aman': return 'bg-green-50 text-green-700 border-green-200';
+                  case 'waspada': return 'bg-yellow-50 text-yellow-700 border-yellow-200';
+                  case 'bahaya': return 'bg-red-50 text-red-700 border-red-200';
+                  default: return 'bg-gray-50 text-gray-700 border-gray-200';
+                }
+              };
+              
+              return (
+                <div key={index} className={`p-3 rounded-lg border ${getStatusColor(route.status)}`}>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className={`w-3 h-3 rounded-full ${
+                        route.color === 'green' ? 'bg-green-500' : 
+                        route.color === 'yellow' ? 'bg-yellow-500' : 'bg-red-500'
+                      }`}></div>
+                      <div>
+                        <p className="font-medium">{route.name}</p>
+                        <p className="text-xs opacity-70">Status: {route.status.toUpperCase()}</p>
+                      </div>
+                    </div>
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      className="text-orange-600 border-orange-600 hover:bg-orange-50"
+                    >
+                      <MapPin size={14} className="mr-1" />
+                      Lihat
+                    </Button>
+                  </div>
+                </div>
+              );
+            })}
           </CardContent>
         </Card>
 

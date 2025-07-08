@@ -1,5 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
-import { AlertTriangle, Cloud, Droplets, Languages, Bell, MapPin, FileText, Shield, Settings, Users, BarChart3, Thermometer, Wind, Camera, Video, Eye, Waves, LogOut, Wifi, WifiOff, HelpCircle, Phone, MapPinIcon, User, History, Clock } from 'lucide-react';
+import { AlertTriangle, Cloud, Droplets, Languages, Bell, MapPin, FileText, Shield, Settings, Users, BarChart3, Thermometer, Wind, Camera, Video, Eye, Waves, LogOut, Wifi, WifiOff, HelpCircle, Phone, MapPinIcon, User, History, Clock, Moon, Sun } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useAuth } from './AuthProvider';
 import { Button } from './ui/button';
@@ -19,6 +20,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
   const [showHelp, setShowHelp] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
+  const [darkMode, setDarkMode] = useState(false);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
 
   // Monitor online/offline status
   useEffect(() => {
@@ -33,6 +36,26 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
       window.removeEventListener('offline', handleOffline);
     };
   }, []);
+
+  // Check and request notification permission
+  useEffect(() => {
+    if ('Notification' in window) {
+      setNotificationsEnabled(Notification.permission === 'granted');
+    }
+  }, []);
+
+  const requestNotificationPermission = async () => {
+    if ('Notification' in window) {
+      const permission = await Notification.requestPermission();
+      setNotificationsEnabled(permission === 'granted');
+      if (permission === 'granted') {
+        new Notification('Sistem Peringatan Banjir', {
+          body: 'Notifikasi telah diaktifkan untuk peringatan banjir',
+          icon: '/favicon.ico'
+        });
+      }
+    }
+  };
 
   // Sample flood warning history data
   const floodHistory = [
@@ -74,47 +97,47 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
     }
   ];
 
-  // Only show active menu items
+  // Updated menu items with better labels (changed "Operasi" to more understandable terms)
   const menuItems = [
     { 
       icon: AlertTriangle, 
-      label: 'Status Tinggi Muka Air', 
+      label: 'Status Peringatan Banjir', 
       color: 'bg-red-100 text-red-600',
       action: () => onNavigate?.('status-alert')
     },
     { 
       icon: BarChart3, 
-      label: 'Pantauan Otomatis', 
+      label: 'Monitoring Real-time', 
       color: 'bg-blue-100 text-blue-600',
       action: () => onNavigate?.('chart')
     },
     { 
       icon: Droplets, 
-      label: 'Pos Lokasi Pengamatan', 
+      label: 'Pos Pantau Air', 
       color: 'bg-green-100 text-green-600',
       action: () => onNavigate?.('map')
     },
     { 
       icon: Video, 
-      label: 'Pemantauan CCTV', 
+      label: 'Kamera Pengawasan', 
       color: 'bg-orange-100 text-orange-600',
       action: () => onNavigate?.('cctv')
     },
     { 
       icon: MapPin, 
-      label: 'Peta Lokasi', 
+      label: 'Peta & Rute Evakuasi', 
       color: 'bg-teal-100 text-teal-600',
       action: () => onNavigate?.('map')
     },
     { 
       icon: Users, 
-      label: 'Pos Pengamat TMA', 
+      label: 'Pos Petugas Lapangan', 
       color: 'bg-pink-100 text-pink-600',
       action: () => onNavigate?.('water-level')
     },
     { 
       icon: Bell, 
-      label: 'Sistem Notifikasi', 
+      label: 'Pemberitahuan Darurat', 
       color: 'bg-yellow-100 text-yellow-600',
       action: () => onNavigate?.('notifications')
     },
@@ -126,7 +149,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
     },
     { 
       icon: Cloud, 
-      label: 'Perkiraan Cuaca', 
+      label: 'Prakiraan Cuaca', 
       color: 'bg-cyan-100 text-cyan-600',
       action: () => {
         console.log('Weather forecast clicked, navigating to weather-forecast');
@@ -136,16 +159,41 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
   ];
 
   return (
-    <div className="h-full bg-gradient-to-br from-cyan-400 via-blue-400 to-blue-500 overflow-y-auto">
+    <div className={`h-full ${darkMode ? 'dark bg-gray-900' : 'bg-gradient-to-br from-cyan-400 via-blue-400 to-blue-500'} overflow-y-auto`}>
       {/* Header */}
-      <div className="p-4 text-white">
+      <div className={`p-4 ${darkMode ? 'text-gray-100' : 'text-white'}`}>
         <div className="flex items-center justify-between mb-4 pt-6">
           <div className="flex items-center gap-3">
             <h1 className="text-lg font-bold">Home</h1>
           </div>
           <div className="flex gap-2">
+            {/* Dark Mode Toggle */}
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className={`${darkMode ? 'text-gray-100' : 'text-white'} p-2`}
+              onClick={() => setDarkMode(!darkMode)}
+              title="Mode Gelap"
+            >
+              {darkMode ? <Sun size={16} /> : <Moon size={16} />}
+            </Button>
+
+            {/* Notification Permission Button */}
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className={`${darkMode ? 'text-gray-100' : 'text-white'} p-2 relative`}
+              onClick={requestNotificationPermission}
+              title="Aktifkan Notifikasi"
+            >
+              <Bell size={16} />
+              {!notificationsEnabled && (
+                <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse"></span>
+              )}
+            </Button>
+
             {/* Online/Offline Indicator */}
-            <div className="flex items-center gap-1 bg-white/10 rounded-full px-2 py-1">
+            <div className={`flex items-center gap-1 ${darkMode ? 'bg-gray-800/50' : 'bg-white/10'} rounded-full px-2 py-1`}>
               {isOnline ? (
                 <Wifi size={14} className="text-green-300" />
               ) : (
@@ -158,7 +206,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
             <Button 
               variant="ghost" 
               size="sm" 
-              className="text-white p-2"
+              className={`${darkMode ? 'text-gray-100' : 'text-white'} p-2`}
               onClick={() => setShowHelp(true)}
               title="Bantuan"
             >
@@ -173,7 +221,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
                 const nextLang = language === 'id' ? 'tet' : 'id';
                 setLanguage(nextLang);
               }}
-              className="bg-white/10 border-white/20 text-white hover:bg-white/20 text-xs"
+              className={`${darkMode ? 'bg-gray-800/50 border-gray-600 text-gray-100 hover:bg-gray-700' : 'bg-white/10 border-white/20 text-white hover:bg-white/20'} text-xs`}
             >
               <Languages size={14} />
               {language === 'id' ? 'ID' : 'TET'}
@@ -182,16 +230,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
             <Button 
               variant="ghost" 
               size="sm" 
-              className="text-white p-2 relative"
-              onClick={() => onNavigate?.('notifications')}
-            >
-              <Bell size={16} />
-              <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse"></span>
-            </Button>
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              className="text-white p-2"
+              className={`${darkMode ? 'text-gray-100' : 'text-white'} p-2`}
               onClick={logout}
               title="Keluar"
             >
@@ -201,7 +240,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
         </div>
 
         {/* Flood Alert Button */}
-        <Card className="bg-gradient-to-r from-red-500/20 to-orange-500/20 backdrop-blur-sm border-red-300/30 text-white shadow-xl mb-4">
+        <Card className={`${darkMode ? 'bg-gray-800/50 border-red-500/30' : 'bg-gradient-to-r from-red-500/20 to-orange-500/20 backdrop-blur-sm border-red-300/30'} text-white shadow-xl mb-4`}>
           <CardContent className="p-4">
             <Button 
               onClick={() => onNavigate?.('status-alert')}
@@ -217,10 +256,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
         </Card>
 
         {/* Main Header Card */}
-        <Card className="bg-white/20 backdrop-blur-sm border-white/30 text-white shadow-xl mb-4">
+        <Card className={`${darkMode ? 'bg-gray-800/50 border-gray-600' : 'bg-white/20 backdrop-blur-sm border-white/30'} text-white shadow-xl mb-4`}>
           <CardContent className="p-4 text-center">
             <div className="flex items-center justify-center gap-3 mb-3">
-              <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+              <div className={`w-12 h-12 ${darkMode ? 'bg-gray-700' : 'bg-white/20'} rounded-full flex items-center justify-center`}>
                 <Waves className="text-white" size={24} />
               </div>
             </div>
@@ -232,8 +271,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
         {/* Weather Widget */}
         <WeatherWidget />
 
-        {/* Flood History Card */}
-        <Card className="bg-white/20 backdrop-blur-sm border-white/30 text-white shadow-xl mb-4">
+        {/* Enhanced Flood History Card */}
+        <Card className={`${darkMode ? 'bg-gray-800/50 border-gray-600' : 'bg-white/20 backdrop-blur-sm border-white/30'} text-white shadow-xl mb-4`}>
           <CardHeader className="pb-2">
             <CardTitle className="text-base flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -252,12 +291,12 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
           </CardHeader>
           <CardContent className="p-4 pt-0">
             <div className="space-y-2">
-              {floodHistory.slice(0, 2).map((item) => (
-                <div key={item.id} className="bg-white/10 rounded-lg p-3 text-sm">
+              {floodHistory.slice(0, 3).map((item) => (
+                <div key={item.id} className={`${darkMode ? 'bg-gray-700/50' : 'bg-white/10'} rounded-lg p-3 text-sm`}>
                   <div className="flex justify-between items-start">
                     <div>
                       <p className="font-medium">{item.level}</p>
-                      <p className="text-xs text-white/70">{item.height}</p>
+                      <p className="text-xs text-white/70">Tinggi: {item.height}</p>
                     </div>
                     <div className="text-right text-xs text-white/70">
                       <p>{item.date}</p>
@@ -412,7 +451,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
         )}
 
         {/* Menu Grid - Made scrollable */}
-        <div className="bg-white rounded-t-3xl -mx-4 px-4 py-4 min-h-80 max-h-96 overflow-y-auto">
+        <div className={`${darkMode ? 'bg-gray-800' : 'bg-white'} rounded-t-3xl -mx-4 px-4 py-4 min-h-80 max-h-96 overflow-y-auto`}>
           <div className="grid grid-cols-3 gap-3 mb-6">
             {menuItems.map((item, index) => {
               const Icon = item.icon;
@@ -425,7 +464,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
                   <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-2 ${item.color}`}>
                     <Icon size={20} />
                   </div>
-                  <span className="text-[10px] text-center text-gray-700 leading-tight px-1">{item.label}</span>
+                  <span className={`text-[10px] text-center ${darkMode ? 'text-gray-200' : 'text-gray-700'} leading-tight px-1`}>{item.label}</span>
                 </button>
               );
             })}
@@ -434,8 +473,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
           {/* Wave Pattern */}
           <div className="relative h-16 mt-4">
             <svg className="absolute bottom-0 w-full" viewBox="0 0 400 100" preserveAspectRatio="none">
-              <path d="M0,50 Q100,20 200,50 T400,50 L400,100 L0,100 Z" fill="rgba(59, 130, 246, 0.1)" />
-              <path d="M0,60 Q100,30 200,60 T400,60 L400,100 L0,100 Z" fill="rgba(59, 130, 246, 0.05)" />
+              <path d="M0,50 Q100,20 200,50 T400,50 L400,100 L0,100 Z" fill={darkMode ? "rgba(156, 163, 175, 0.1)" : "rgba(59, 130, 246, 0.1)"} />
+              <path d="M0,60 Q100,30 200,60 T400,60 L400,100 L0,100 Z" fill={darkMode ? "rgba(156, 163, 175, 0.05)" : "rgba(59, 130, 246, 0.05)"} />
             </svg>
           </div>
         </div>
