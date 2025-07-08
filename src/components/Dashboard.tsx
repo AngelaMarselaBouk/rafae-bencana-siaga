@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { AlertTriangle, Cloud, Droplets, Languages, Bell, MapPin, FileText, Shield, Settings, Users, BarChart3, Thermometer, Wind, Camera, Video, Eye, Waves, LogOut, UserPlus, Wifi, WifiOff, HelpCircle, Phone, MapPinIcon, User } from 'lucide-react';
+import { AlertTriangle, Cloud, Droplets, Languages, Bell, MapPin, FileText, Shield, Settings, Users, BarChart3, Thermometer, Wind, Camera, Video, Eye, Waves, LogOut, Wifi, WifiOff, HelpCircle, Phone, MapPinIcon, User } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useAuth } from './AuthProvider';
 import { Button } from './ui/button';
@@ -17,14 +17,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
   const { user, logout } = useAuth();
   const [showSettings, setShowSettings] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
-  const [showRegistration, setShowRegistration] = useState(false);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
-  const [registrationData, setRegistrationData] = useState({
-    name: '',
-    phone: '',
-    location: '',
-    email: ''
-  });
 
   // Monitor online/offline status
   useEffect(() => {
@@ -39,15 +32,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
       window.removeEventListener('offline', handleOffline);
     };
   }, []);
-
-  const handleRegistrationSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Registration data:', registrationData);
-    // Here you would typically send the data to your backend
-    alert('Pendaftaran berhasil! Data akan diproses oleh administrator.');
-    setShowRegistration(false);
-    setRegistrationData({ name: '', phone: '', location: '', email: '' });
-  };
 
   const menuItems = [
     { 
@@ -211,110 +195,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
             <p className="text-white/90 text-xs">Atambua, Kabupaten Belu, Nusa Tenggara Timur</p>
           </CardContent>
         </Card>
-
-        {/* Quick Registration Form */}
-        <Card className="bg-gradient-to-r from-indigo-500/20 to-purple-500/20 backdrop-blur-sm border-white/30 text-white shadow-xl mb-4">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-indigo-500/30 rounded-full flex items-center justify-center">
-                  <UserPlus className="text-white" size={20} />
-                </div>
-                <div>
-                  <h3 className="font-bold text-white">Pendaftaran Pengguna</h3>
-                  <p className="text-white/80 text-xs">Daftar untuk mendapat notifikasi</p>
-                </div>
-              </div>
-              <Button 
-                onClick={() => setShowRegistration(true)}
-                className="bg-white/20 hover:bg-white/30 text-white border-white/20"
-                size="sm"
-              >
-                Daftar
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Registration Modal */}
-        {showRegistration && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-            <Card className="w-full max-w-md bg-white">
-              <CardHeader>
-                <CardTitle className="text-center text-gray-800">Pendaftaran Pengguna Baru</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleRegistrationSubmit} className="space-y-4">
-                  <div>
-                    <Label htmlFor="name" className="text-sm font-medium text-gray-700">Nama Lengkap</Label>
-                    <div className="relative">
-                      <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
-                      <Input
-                        id="name"
-                        value={registrationData.name}
-                        onChange={(e) => setRegistrationData(prev => ({ ...prev, name: e.target.value }))}
-                        placeholder="Masukkan nama lengkap"
-                        className="pl-10"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <Label htmlFor="phone" className="text-sm font-medium text-gray-700">Nomor HP</Label>
-                    <div className="relative">
-                      <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
-                      <Input
-                        id="phone"
-                        value={registrationData.phone}
-                        onChange={(e) => setRegistrationData(prev => ({ ...prev, phone: e.target.value }))}
-                        placeholder="08xxx-xxxx-xxxx"
-                        className="pl-10"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <Label htmlFor="location" className="text-sm font-medium text-gray-700">Lokasi/Desa</Label>
-                    <div className="relative">
-                      <MapPinIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
-                      <Input
-                        id="location"
-                        value={registrationData.location}
-                        onChange={(e) => setRegistrationData(prev => ({ ...prev, location: e.target.value }))}
-                        placeholder="Nama desa/kelurahan"
-                        className="pl-10"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <Label htmlFor="email" className="text-sm font-medium text-gray-700">Email (Opsional)</Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      value={registrationData.email}
-                      onChange={(e) => setRegistrationData(prev => ({ ...prev, email: e.target.value }))}
-                      placeholder="email@contoh.com"
-                    />
-                  </div>
-                  <div className="flex gap-2">
-                    <Button type="submit" className="flex-1">
-                      Daftar
-                    </Button>
-                    <Button 
-                      type="button"
-                      variant="outline"
-                      onClick={() => setShowRegistration(false)}
-                      className="flex-1"
-                    >
-                      Batal
-                    </Button>
-                  </div>
-                </form>
-              </CardContent>
-            </Card>
-          </div>
-        )}
 
         {/* Help Modal */}
         {showHelp && (
