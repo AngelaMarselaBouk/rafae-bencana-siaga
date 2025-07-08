@@ -37,6 +37,11 @@ const AppContent = () => {
     }
   };
 
+  const handleNavigate = (tab: string) => {
+    console.log('Navigation requested to:', tab);
+    setActiveTab(tab);
+  };
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-cyan-400 via-blue-400 to-blue-500 flex items-center justify-center">
@@ -53,9 +58,10 @@ const AppContent = () => {
   }
 
   const renderContent = () => {
+    console.log('Current active tab:', activeTab);
     switch (activeTab) {
       case 'dashboard':
-        return <Dashboard onNavigate={setActiveTab} />;
+        return <Dashboard onNavigate={handleNavigate} />;
       case 'map':
         return <Map onBack={() => setActiveTab('dashboard')} />;
       case 'chart':
@@ -65,6 +71,7 @@ const AppContent = () => {
       case 'water-level':
         return <WaterLevelStatus onBack={() => setActiveTab('dashboard')} />;
       case 'weather-forecast':
+        console.log('Rendering WeatherForecast component');
         return <WeatherForecast onBack={() => setActiveTab('dashboard')} />;
       case 'cctv':
         return <CCTVMonitoring onBack={() => setActiveTab('dashboard')} />;
@@ -79,7 +86,7 @@ const AppContent = () => {
       case 'education':
         return <Education />;
       default:
-        return <Dashboard onNavigate={setActiveTab} />;
+        return <Dashboard onNavigate={handleNavigate} />;
     }
   };
 
