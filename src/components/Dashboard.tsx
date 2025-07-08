@@ -1,12 +1,12 @@
-
 import React, { useState, useEffect } from 'react';
-import { AlertTriangle, Cloud, Droplets, Languages, Bell, MapPin, FileText, Shield, Settings, Users, BarChart3, Thermometer, Wind, Camera, Video, Eye, Waves, LogOut, Wifi, WifiOff, HelpCircle, Phone, MapPinIcon, User } from 'lucide-react';
+import { AlertTriangle, Cloud, Droplets, Languages, Bell, MapPin, FileText, Shield, Settings, Users, BarChart3, Thermometer, Wind, Camera, Video, Eye, Waves, LogOut, Wifi, WifiOff, HelpCircle, Phone, MapPinIcon, User, History, Clock } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useAuth } from './AuthProvider';
 import { Button } from './ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
+import { WeatherWidget } from './WeatherWidget';
 
 interface DashboardProps {
   onNavigate?: (tab: string) => void;
@@ -17,6 +17,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
   const { user, logout } = useAuth();
   const [showSettings, setShowSettings] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
+  const [showHistory, setShowHistory] = useState(false);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
 
   // Monitor online/offline status
@@ -33,6 +34,47 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
     };
   }, []);
 
+  // Sample flood warning history data
+  const floodHistory = [
+    {
+      id: 1,
+      date: '2024-01-10',
+      time: '14:30',
+      level: 'Siaga 2',
+      height: '165 cm',
+      status: 'resolved',
+      color: 'text-orange-600 bg-orange-50'
+    },
+    {
+      id: 2,
+      date: '2024-01-05',
+      time: '09:15',
+      level: 'Siaga 3',
+      height: '155 cm',
+      status: 'resolved',
+      color: 'text-yellow-600 bg-yellow-50'
+    },
+    {
+      id: 3,
+      date: '2023-12-28',
+      time: '16:45',
+      level: 'Siaga 1',
+      height: '185 cm',
+      status: 'resolved',
+      color: 'text-red-600 bg-red-50'
+    },
+    {
+      id: 4,
+      date: '2023-12-15',
+      time: '11:20',
+      level: 'Siaga 3',
+      height: '150 cm',
+      status: 'resolved',
+      color: 'text-yellow-600 bg-yellow-50'
+    }
+  ];
+
+  // Only show active menu items
   const menuItems = [
     { 
       icon: AlertTriangle, 
@@ -51,12 +93,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
       label: 'Pos Lokasi Pengamatan', 
       color: 'bg-green-100 text-green-600',
       action: () => onNavigate?.('map')
-    },
-    { 
-      icon: Settings, 
-      label: 'Status Sistem', 
-      color: 'bg-purple-100 text-purple-600',
-      action: () => setShowSettings(true)
     },
     { 
       icon: Video, 
@@ -96,12 +132,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
         console.log('Weather forecast clicked, navigating to weather-forecast');
         onNavigate?.('weather-forecast');
       }
-    },
-    { 
-      icon: FileText, 
-      label: 'Laporan', 
-      color: 'bg-gray-100 text-gray-600',
-      action: () => onNavigate?.('report')
     }
   ];
 
@@ -198,6 +228,91 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
             <p className="text-white/90 text-xs">Atambua, Kabupaten Belu, Nusa Tenggara Timur</p>
           </CardContent>
         </Card>
+
+        {/* Weather Widget */}
+        <WeatherWidget />
+
+        {/* Flood History Card */}
+        <Card className="bg-white/20 backdrop-blur-sm border-white/30 text-white shadow-xl mb-4">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-base flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <History size={20} />
+                Riwayat Peringatan Banjir
+              </div>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="text-white/80 hover:text-white"
+                onClick={() => setShowHistory(true)}
+              >
+                Lihat Semua
+              </Button>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-4 pt-0">
+            <div className="space-y-2">
+              {floodHistory.slice(0, 2).map((item) => (
+                <div key={item.id} className="bg-white/10 rounded-lg p-3 text-sm">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <p className="font-medium">{item.level}</p>
+                      <p className="text-xs text-white/70">{item.height}</p>
+                    </div>
+                    <div className="text-right text-xs text-white/70">
+                      <p>{item.date}</p>
+                      <p>{item.time}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Flood History Modal */}
+        {showHistory && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+            <Card className="w-full max-w-md bg-white max-h-96 overflow-y-auto">
+              <CardHeader>
+                <CardTitle className="text-center text-gray-800 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <History size={20} />
+                    Riwayat Peringatan Banjir
+                  </div>
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={() => setShowHistory(false)}
+                    className="text-gray-500"
+                  >
+                    ✕
+                  </Button>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                {floodHistory.map((item) => (
+                  <div key={item.id} className={`p-3 rounded-lg ${item.color}`}>
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <p className="font-medium text-sm">{item.level}</p>
+                        <p className="text-xs opacity-70">Tinggi: {item.height}</p>
+                        <p className="text-xs opacity-70">Status: Selesai</p>
+                      </div>
+                      <div className="text-right text-xs opacity-70">
+                        <div className="flex items-center gap-1">
+                          <Clock size={12} />
+                          <span>{item.date}</span>
+                        </div>
+                        <p className="mt-1">{item.time}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          </div>
+        )}
 
         {/* Help Modal */}
         {showHelp && (
