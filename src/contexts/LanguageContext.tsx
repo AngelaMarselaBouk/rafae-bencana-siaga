@@ -22,6 +22,7 @@ const translations = {
     waterLevel: 'Ketinggian Air',
     emergencyButton: 'TOMBOL DARURAT',
     lastReports: 'Laporan Terbaru',
+    sosButton: 'TOMBOL S.O.S',
     
     // Weather conditions
     sunny: 'Cerah',
@@ -39,6 +40,7 @@ const translations = {
     emergencyAlert: 'PERINGATAN DARURAT',
     sendLocation: 'Kirim Lokasi',
     callHelp: 'Panggil Bantuan',
+    sosAlert: 'SINYAL S.O.S DARURAT',
     
     // Report
     submitReport: 'Kirim Laporan',
@@ -49,7 +51,13 @@ const translations = {
     // Education
     floodPreparedness: 'Kesiapsiagaan Banjir',
     evacuationGuide: 'Panduan Evakuasi',
-    emergencyKit: 'Kit Darurat'
+    emergencyKit: 'Kit Darurat',
+    
+    // Settings
+    fontSize: 'Ukuran Huruf',
+    small: 'Kecil',
+    medium: 'Sedang',
+    large: 'Besar'
   },
   tet: {
     // Navigation
@@ -65,6 +73,7 @@ const translations = {
     waterLevel: 'Nivel Bee',
     emergencyButton: 'BOTAUN EMERJÉNSIA',
     lastReports: 'Relatóriu Foun',
+    sosButton: 'BOTAUN S.O.S',
     
     // Weather conditions
     sunny: 'Mahuur',
@@ -82,6 +91,7 @@ const translations = {
     emergencyAlert: 'AVIZU EMERJÉNSIA',
     sendLocation: 'Haruka Fatin',
     callHelp: 'Bolu Ajuda',
+    sosAlert: 'SINAL S.O.S EMERJÉNSIA',
     
     // Report
     submitReport: 'Haruka Relatóriu',
@@ -92,7 +102,13 @@ const translations = {
     // Education
     floodPreparedness: 'Preparasaun Ba Bee-Manas',
     evacuationGuide: 'Gia Evakuasaun',
-    emergencyKit: 'Kit Emerjénsia'
+    emergencyKit: 'Kit Emerjénsia',
+    
+    // Settings
+    fontSize: 'Todan Letra',
+    small: 'Ki\'ik',
+    medium: 'Klaran',
+    large: 'Boot'
   },
   daw: {
     // Navigation (Dawan translations)
@@ -108,6 +124,7 @@ const translations = {
     waterLevel: 'Tinggi Air',
     emergencyButton: 'TOMBOL BAHAYA',
     lastReports: 'Laporan Baru',
+    sosButton: 'TOMBOL S.O.S',
     
     // Weather conditions
     sunny: 'Panas',
@@ -125,6 +142,7 @@ const translations = {
     emergencyAlert: 'PERINGATAN BAHAYA',
     sendLocation: 'Kirim Tempat',
     callHelp: 'Panggil Tolong',
+    sosAlert: 'SINYAL S.O.S BAHAYA',
     
     // Report
     submitReport: 'Kirim Laporan',
@@ -135,7 +153,13 @@ const translations = {
     // Education
     floodPreparedness: 'Siap Hadapi Banjir',
     evacuationGuide: 'Cara Mengungsi',
-    emergencyKit: 'Tas Darurat'
+    emergencyKit: 'Tas Darurat',
+    
+    // Settings
+    fontSize: 'Ukuran Huruf',
+    small: 'Kecil',
+    medium: 'Sedang',
+    large: 'Besar'
   }
 };
 

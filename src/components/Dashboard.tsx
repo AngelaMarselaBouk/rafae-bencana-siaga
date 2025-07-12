@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect } from 'react';
-import { AlertTriangle, Cloud, Droplets, Languages, Bell, MapPin, FileText, Shield, Settings, Users, BarChart3, Thermometer, Wind, Camera, Video, Eye, Waves, LogOut, Wifi, WifiOff, HelpCircle, Phone, MapPinIcon, User, History, Clock, Moon, Sun } from 'lucide-react';
+import { AlertTriangle, Cloud, Droplets, Languages, Bell, MapPin, FileText, Shield, Settings, Users, BarChart3, Thermometer, Wind, Camera, Video, Eye, Waves, LogOut, Wifi, WifiOff, HelpCircle, Phone, MapPinIcon, User, History, Clock, Moon, Sun, Type, Zap } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useAuth } from './AuthProvider';
 import { Button } from './ui/button';
@@ -8,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { WeatherWidget } from './WeatherWidget';
+import { NotificationService } from '../utils/notificationService';
 
 interface DashboardProps {
   onNavigate?: (tab: string) => void;
@@ -21,7 +21,9 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
   const [showHistory, setShowHistory] = useState(false);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const [darkMode, setDarkMode] = useState(false);
+  const [fontSize, setFontSize<'small' | 'medium' | 'large'>( 'medium');
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
+  const [sosActive, setSosActive] = useState(false);
 
   // Monitor online/offline status
   useEffect(() => {
@@ -45,16 +47,40 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
   }, []);
 
   const requestNotificationPermission = async () => {
-    if ('Notification' in window) {
-      const permission = await Notification.requestPermission();
-      setNotificationsEnabled(permission === 'granted');
-      if (permission === 'granted') {
-        new Notification('Sistem Peringatan Banjir', {
-          body: 'Notifikasi telah diaktifkan untuk peringatan banjir',
-          icon: '/favicon.ico'
-        });
-      }
+    const service = NotificationService.getInstance();
+    const granted = await service.requestPermission();
+    setNotificationsEnabled(granted);
+    if (granted) {
+      await service.sendFloodAlert('Siaga 3', 'Atambua');
     }
+  };
+
+  const handleSOSAlert = async () => {
+    setSosActive(true);
+    const service = NotificationService.getInstance();
+    await service.sendSOSAlert();
+    
+    // Simulate sending SOS signal
+    setTimeout(() => {
+      setSosActive(false);
+    }, 5000);
+  };
+
+  // Font size classes
+  const getFontSizeClass = () => {
+    switch (fontSize) {
+      case 'small': return 'text-sm';
+      case 'large': return 'text-lg';
+      default: return 'text-base';
+    }
+  };
+
+  // Language cycle function
+  const cycleLanguage = () => {
+    const languages: ('id' | 'tet' | 'daw')[] = ['id', 'tet', 'daw'];
+    const currentIndex = languages.indexOf(language);
+    const nextIndex = (currentIndex + 1) % languages.length;
+    setLanguage(languages[nextIndex]);
   };
 
   // Sample flood warning history data
@@ -97,7 +123,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
     }
   ];
 
-  // Updated menu items with better labels (changed "Operasi" to more understandable terms)
+  // Updated menu items with better labels
   const menuItems = [
     { 
       icon: AlertTriangle, 
@@ -159,7 +185,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
   ];
 
   return (
-    <div className={`h-full ${darkMode ? 'dark bg-gray-900' : 'bg-gradient-to-br from-cyan-400 via-blue-400 to-blue-500'} overflow-y-auto`}>
+    <div className={`h-full ${darkMode ? 'dark bg-gray-900' : 'bg-gradient-to-br from-cyan-400 via-blue-400 to-blue-500'} overflow-y-auto ${getFontSizeClass()}`}>
       {/* Header */}
       <div className={`p-4 ${darkMode ? 'text-gray-100' : 'text-white'}`}>
         <div className="flex items-center justify-between mb-4 pt-6">
@@ -167,6 +193,22 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
             <h1 className="text-lg font-bold">Home</h1>
           </div>
           <div className="flex gap-2">
+            {/* Font Size Toggle */}
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className={`${darkMode ? 'text-gray-100' : 'text-white'} p-2`}
+              onClick={() => {
+                const sizes: ('small' | 'medium' | 'large')[] = ['small', 'medium', 'large'];
+                const currentIndex = sizes.indexOf(fontSize);
+                const nextIndex = (currentIndex + 1) % sizes.length;
+                setFontSize(sizes[nextIndex]);
+              }}
+              title="Ukuran Huruf"
+            >
+              <Type size={16} />
+            </Button>
+
             {/* Dark Mode Toggle */}
             <Button 
               variant="ghost" 
@@ -217,14 +259,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => {
-                const nextLang = language === 'id' ? 'tet' : 'id';
-                setLanguage(nextLang);
-              }}
+              onClick={cycleLanguage}
               className={`${darkMode ? 'bg-gray-800/50 border-gray-600 text-gray-100 hover:bg-gray-700' : 'bg-white/10 border-white/20 text-white hover:bg-white/20'} text-xs`}
             >
               <Languages size={14} />
-              {language === 'id' ? 'ID' : 'TET'}
+              {language === 'id' ? 'ID' : language === 'tet' ? 'TET' : 'DAW'}
             </Button>
             
             <Button 
@@ -238,6 +277,26 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
             </Button>
           </div>
         </div>
+
+        {/* S.O.S Emergency Button */}
+        <Card className={`${sosActive ? 'bg-red-600 animate-pulse' : 'bg-red-500'} text-white shadow-xl mb-4 border-red-400`}>
+          <CardContent className="p-4">
+            <Button 
+              onClick={handleSOSAlert}
+              disabled={sosActive}
+              className="w-full bg-red-700 hover:bg-red-800 text-white font-bold py-4 text-xl border-2 border-white"
+            >
+              <Zap size={24} className="mr-2" />
+              {sosActive ? 'SINYAL S.O.S TERKIRIM...' : t('sosButton')}
+            </Button>
+            <p className="text-center text-sm mt-2 text-white/90">
+              {sosActive ? 
+                'Tim penyelamat telah diberitahu!' : 
+                'Tekan untuk mengirim sinyal darurat ke BPBD Belu'
+              }
+            </p>
+          </CardContent>
+        </Card>
 
         {/* Flood Alert Button */}
         <Card className={`${darkMode ? 'bg-gray-800/50 border-red-500/30' : 'bg-gradient-to-r from-red-500/20 to-orange-500/20 backdrop-blur-sm border-red-300/30'} text-white shadow-xl mb-4`}>
