@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { AlertTriangle, Cloud, Droplets, Languages, Bell, MapPin, FileText, Shield, Settings, Users, BarChart3, Thermometer, Wind, Camera, Video, Eye, Waves, LogOut, Wifi, WifiOff, HelpCircle, Phone, MapPinIcon, User, History, Clock, Moon, Sun, Type, Zap } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -21,7 +22,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
   const [showHistory, setShowHistory] = useState(false);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const [darkMode, setDarkMode] = useState(false);
-  const [fontSize, setFontSize<'small' | 'medium' | 'large'>( 'medium');
+  const [fontSize, setFontSize] = useState<'small' | 'medium' | 'large'>('medium');
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const [sosActive, setSosActive] = useState(false);
 
