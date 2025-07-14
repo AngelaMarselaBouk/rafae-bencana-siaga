@@ -279,41 +279,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
           </div>
         </div>
 
-        {/* S.O.S Emergency Button */}
-        <Card className={`${sosActive ? 'bg-red-600 animate-pulse' : 'bg-red-500'} text-white shadow-xl mb-4 border-red-400`}>
-          <CardContent className="p-4">
-            <Button 
-              onClick={handleSOSAlert}
-              disabled={sosActive}
-              className="w-full bg-red-700 hover:bg-red-800 text-white font-bold py-4 text-xl border-2 border-white"
-            >
-              <Zap size={24} className="mr-2" />
-              {sosActive ? 'SINYAL S.O.S TERKIRIM...' : t('sosButton')}
-            </Button>
-            <p className="text-center text-sm mt-2 text-white/90">
-              {sosActive ? 
-                'Tim penyelamat telah diberitahu!' : 
-                'Tekan untuk mengirim sinyal darurat ke BPBD Belu'
-              }
-            </p>
-          </CardContent>
-        </Card>
-
-        {/* Flood Alert Button */}
-        <Card className={`${darkMode ? 'bg-gray-800/50 border-red-500/30' : 'bg-gradient-to-r from-red-500/20 to-orange-500/20 backdrop-blur-sm border-red-300/30'} text-white shadow-xl mb-4`}>
-          <CardContent className="p-4">
-            <Button 
-              onClick={() => onNavigate?.('status-alert')}
-              className="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 text-lg"
-            >
-              <AlertTriangle size={24} className="mr-2" />
-              PERINGATAN BANJIR
-            </Button>
-            <p className="text-center text-sm mt-2 text-white/80">
-              Status saat ini: <span className="font-bold text-green-300">AMAN</span>
-            </p>
-          </CardContent>
-        </Card>
 
         {/* Main Header Card */}
         <Card className={`${darkMode ? 'bg-gray-800/50 border-gray-600' : 'bg-white/20 backdrop-blur-sm border-white/30'} text-white shadow-xl mb-4`}>
