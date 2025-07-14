@@ -182,7 +182,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
     },
     { 
       icon: Cloud, 
-      label: 'Prakiraan Cuaca', 
+      label: 'Perkiraan Cuaca', 
       color: 'bg-cyan-100 text-cyan-600',
       action: () => {
         console.log('Weather forecast clicked, navigating to weather-forecast');
