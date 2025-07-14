@@ -175,6 +175,12 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
       action: () => onNavigate?.('emergency')
     },
     { 
+      icon: Settings, 
+      label: 'Pengaturan Sistem', 
+      color: 'bg-gray-100 text-gray-600',
+      action: () => setShowSettings(true)
+    },
+    { 
       icon: Cloud, 
       label: 'Prakiraan Cuaca', 
       color: 'bg-cyan-100 text-cyan-600',
